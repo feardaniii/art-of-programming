@@ -1,0 +1,15 @@
+# Delivery Fleet Management System - Dependencies
+# Python 3.10+ required
+
+# Core dependencies (Phase 1 - Console version)
+# No external dependencies required for Phase 1!
+# Python standard library is sufficient
+
+# Phase 3 - GUI version (ACTIVE)
+pygame>=2.5.0  # For graphical interface and visualization
+
+# Development dependencies (optional)
+# pytest>=7.4.0  # For unit testing
+# pytest-cov>=4.1.0  # For test coverage
+# mypy>=1.5.0  # For type checking
+# black>=23.7.0  # For code formatting

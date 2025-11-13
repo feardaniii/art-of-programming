@@ -1,0 +1,86 @@
+{
+  "current_day": 5,
+  "balance": 47127.33564122312,
+  "fleet": [
+    {
+      "id": "veh_001",
+      "type": "small_van",
+      "purchase_day": 0,
+      "current_location": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": "veh_002",
+      "type": "medium_truck",
+      "purchase_day": 0,
+      "current_location": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "history": [
+    {
+      "day": 1,
+      "packages_delivered": 11,
+      "packages_attempted": 11,
+      "revenue": 638.1500000000001,
+      "costs": 297.40753670898556,
+      "profit": 340.74246329101453,
+      "agent_used": "greedy",
+      "balance_end": 100340.74246329101
+    },
+    {
+      "day": 1,
+      "packages_delivered": 11,
+      "packages_attempted": 11,
+      "revenue": 638.1500000000001,
+      "costs": 297.40753670898556,
+      "profit": 340.74246329101453,
+      "agent_used": "greedy",
+      "balance_end": 100681.48492658202
+    },
+    {
+      "day": 1,
+      "packages_delivered": 11,
+      "packages_attempted": 11,
+      "revenue": 638.1500000000001,
+      "costs": 297.40753670898556,
+      "profit": 340.74246329101453,
+      "agent_used": "pruning_backtracking",
+      "balance_end": 101022.22738987303
+    },
+    {
+      "day": 2,
+      "packages_delivered": 10,
+      "packages_attempted": 10,
+      "revenue": 628.2233333333334,
+      "costs": 278.1525944004165,
+      "profit": 350.07073893291687,
+      "agent_used": "greedy",
+      "balance_end": 101372.29812880595
+    },
+    {
+      "day": 3,
+      "packages_delivered": 10,
+      "packages_attempted": 10,
+      "revenue": 629.9933333333333,
+      "costs": 283.22555042182626,
+      "profit": 346.7677829115071,
+      "agent_used": "greedy",
+      "balance_end": 101719.06591171747
+    },
+    {
+      "day": 4,
+      "packages_delivered": 11,
+      "packages_attempted": 11,
+      "revenue": 753.8700000000001,
+      "costs": 345.6002704943485,
+      "profit": 408.26972950565164,
+      "agent_used": "greedy",
+      "balance_end": 102127.33564122312
+    }
+  ]
+}
