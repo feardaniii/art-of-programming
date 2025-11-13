@@ -22,18 +22,18 @@ print()
 
 # Pasul 2: Curățăm datele
 # Completăm numele lipsă
-df['nume'] = df['nume'].fillna('Necunoscut')
+df['nume'].fillna('Necunoscut', inplace=True)
 
 # Completăm vârsta cu media
 varsta_medie = df['varsta'].mean()
-df['varsta'] = df['varsta'].fillna(varsta_medie)
+df['varsta'].fillna(varsta_medie, inplace=True)
 
 # Completăm salariul cu media
 salariu_mediu = df['salariu'].mean()
-df['salariu'] = df['salariu'].fillna(salariu_mediu)
+df['salariu'].fillna(salariu_mediu, inplace=True)
 
 # Completăm orașul lipsă
-df['oras'] = df['oras'].replace('', 'București')
+df['oras'].replace('', 'București', inplace=True)
 
 print("Date curate:")
 print(df)
