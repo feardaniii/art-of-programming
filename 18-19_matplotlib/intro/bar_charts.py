@@ -6,8 +6,14 @@ categories = ['Rent', 'Food', 'Transport', 'Entertainment', 'Savings']
 amounts = [1200, 750, 200, 400, 650]
 colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
 
+
+# Incepe Matplotlib (plotting & design)
 plt.figure(figsize=(10, 6))
-bars = plt.bar(categories, amounts, color=colors, alpha=0.8)
+
+bars = plt.bar(categories, amounts, color=colors, alpha=0.7)
+print(bars)
+
+
 plt.title('Monthly Budget Breakdown', fontsize=16, fontweight='bold')
 plt.ylabel('Amount (€)')
 

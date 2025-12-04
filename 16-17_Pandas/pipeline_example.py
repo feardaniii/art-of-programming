@@ -14,7 +14,7 @@ raw_data = {
     'varsta': [28, 34, None, 45, 29, 29, -5, 150, 32, None, 27],  # Valori invalide!
     'salariu': [None, 4500, 5200, 3800, 4200, 4200, 3000, 5500, None, 4800, 5000],
     'oras': ['București', 'Cluj', '', 'Timișoara', 'bucurești', 'București',
-             'cluj', 'Timișoara', 'Iași', 'București', ''],
+             'cluj', 'Timișoara', 'Iași', 'București', 'buc'],
     'data_angajare': ['2020-01-15', '2019-05-20', '2021-03-10', 'invalid',
                       '2020-08-15', '2020-08-15', '2022-01-01', '2018-12-01',
                       '2021-06-15', None, '2023-02-01']
@@ -114,8 +114,10 @@ print(df_cleaned[['nume', 'varsta', 'salariu', 'oras', 'ani_experienta']].head()
 print()
 
 # Salvează în CSV (opțional - decomentează dacă vrei să salvezi)
-# df_cleaned.to_csv('date_curate.csv', index=False)
+df_cleaned.to_csv('date_curate.csv', index=False)
 # print("   ✓ Fișier salvat: date_curate.csv")
+
+df_cleaned.to_excel("output.xlsx", index=False)
 
 print("\n" + "="*60)
 print("✅ PIPELINE COMPLET! Date prelucrate și gata de analiză!")
@@ -127,3 +129,4 @@ print(f"   Rânduri procesate: {initial_rows} → {len(df_cleaned)}")
 print(f"   Duplicate eliminate: {duplicates_removed}")
 print(f"   Valori invalide corectate: {len(invalid_ages) + invalid_dates}")
 print(f"   Calitatea datelor: {(len(df_cleaned) / initial_rows * 100):.1f}%")
+

@@ -10,6 +10,10 @@ comenzi_data = {
 }
 
 df = pd.DataFrame(comenzi_data)
+
+for element in comenzi_data['produs']:
+    print(element)
+
 df['data'] = pd.to_datetime(df['data'])  # Convertim în datetime
 df['valoare_totala'] = df['pret'] * df['cantitate']  # Calculăm valoarea
 
@@ -19,13 +23,20 @@ print("\n" + "="*60 + "\n")
 
 # 1. FILTRARE - Produse scumpe (> 500 lei)
 print("1. FILTRARE - Produse cu preț > 500 lei:")
+
+
+
+
+
+
+
 produse_scumpe = df[df['pret'] > 500]
 print(produse_scumpe[['produs', 'pret', 'oras']])
 print()
 
 # 2. GRUPARE - Vânzări pe orașe
-print("2. GRUPARE - Total vânzări pe orașe:")
-vanzari_oras = df.groupby('oras')['valoare_totala'].sum().sort_values(ascending=False)
+print("2. GRUPARE - Total vânzări pe date:")
+vanzari_oras = df.groupby('data')['valoare_totala'].sum()
 print(vanzari_oras)
 print()
 

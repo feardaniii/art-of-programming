@@ -24,6 +24,7 @@ comenzi_data = {
 }
 
 df = pd.DataFrame(comenzi_data)
+
 df['data'] = pd.to_datetime(df['data'])
 df['valoare_totala'] = df['pret'] * df['cantitate']
 
@@ -38,9 +39,7 @@ pivot1 = df.pivot_table(
     values='valoare_totala',
     index='oras',
     columns='produs',
-    aggfunc='sum',
-    fill_value=0
-)
+    aggfunc='sum', fill_value=0)
 print(pivot1)
 print()
 
@@ -53,7 +52,7 @@ pivot2 = df.pivot_table(
     aggfunc=['sum', 'mean', 'count'],
     fill_value=0
 )
-print(pivot2)
+print(pivot2.to_string())
 print()
 
 # 3. PIVOT CU MARGINI (TOTALS) - Raport executive
@@ -67,7 +66,7 @@ pivot3 = df.pivot_table(
     margins=True,  # Adaugă totals
     margins_name='TOTAL'
 )
-print(pivot3)
+print(pivot3.to_string())
 print()
 
 # 4. CROSS-TAB - Analiza cantităților
@@ -79,7 +78,7 @@ crosstab = pd.crosstab(
     aggfunc='sum',
     margins=True
 )
-print(crosstab)
+print(crosstab.to_string())
 print()
 
 # 5. GROUPBY + PIVOT - Analiza complexă
@@ -89,7 +88,7 @@ grouped = df.groupby(['oras', 'produs']).agg({
     'cantitate': 'sum',
     'data': 'count'
 }).rename(columns={'data': 'nr_comenzi'})
-print(grouped.sort_values('valoare_totala', ascending=False))
+print(grouped.sort_values('valoare_totala', ascending=False).to_string())
 print()
 
 # 6. INSIGHTS AUTOMATE
@@ -110,6 +109,6 @@ pivot_time = df.pivot_table(
     aggfunc='sum',
     fill_value=0
 )
-print(pivot_time)
+print(pivot_time.to_string())
 
 print("\n🎉 Gata! Din haos ai creat rapoarte executive profesionale!")

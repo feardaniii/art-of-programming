@@ -1,0 +1,12 @@
+id,nume,email,varsta,salariu,oras,data_angajare,ani_experienta,salariu_per_exp
+1,Alex,alex@ex.com,28.0,4466.666666666667,București,2020-01-15,5.8,770.11
+2,Necunoscut,invalid,34.0,4500.0,Cluj,2019-05-20,6.5,692.31
+3,Maria,maria@ex.com,41.0,5200.0,Necunoscut,2021-03-10,4.7,1106.38
+4,Ion,ion@ex.com,45.0,3800.0,Timișoara,,0.0,3800.0
+5,Ana,unknown@example.com,29.0,4200.0,București,2020-08-15,5.2,807.69
+5,Ana,ana@ex.com,29.0,4200.0,București,2020-08-15,5.2,807.69
+6,George,george@ex.com,41.0,3000.0,Cluj,2022-01-01,3.9,769.23
+7,Necunoscut,test@ex.com,41.0,5500.0,Timișoara,2018-12-01,7.0,785.71
+8,Diana,unknown@example.com,32.0,4466.666666666667,Iași,2021-06-15,4.4,1015.15
+9,Paul,paul@ex.com,41.0,4800.0,București,,0.0,4800.0
+10,Laura,laura@ex.com,27.0,5000.0,Buc,2023-02-01,2.8,1785.71

@@ -3,7 +3,9 @@ import numpy as np
 from datetime import datetime, timedelta
 
 # Creăm date reale de vânzări lunare
-dates = pd.date_range('2024-01-01', periods=12, freq='M')
+dates = pd.date_range('2024-01-01', periods=12, freq='ME')
+print(dates)
+
 vanzari_data = {
     'data': dates,
     'vanzari': [25000, 28000, 32000, 29000, 35000, 38000,
@@ -21,7 +23,7 @@ print("=== ANALIZA TRENDURILOR - TIME SERIES ===\n")
 
 # 1. RESAMPLE - Agregare pe perioade
 print("1. RESAMPLE - Vânzări pe trimestre:")
-quarterly = df['vanzari'].resample('Q').sum()
+quarterly = df['vanzari'].resample('QE').sum()
 print(quarterly)
 print()
 
