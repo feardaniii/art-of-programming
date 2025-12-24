@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React { useState, useEffect, useRef } from 'react';
 import { Camera, Zap, Eye, Sliders } from 'lucide-react';
 
 const OpenCVConvolutionLab = () => {

@@ -36,6 +36,7 @@ print(f"\n🌓 Grayscale shape: {gray_image.shape}")  # (1080, 1920) - 2D only!
 hsv_image = cv2.cvtColor(meal_rgb, cv2.COLOR_RGB2HSV)
 
 # ====== Real Health App Use Case ======
+# Heuristic: Analyze color variety in meal - more colors = better nutrition
 def analyze_meal_variety(image_rgb):
     """Analyze color variety in meal - more colors = better nutrition"""
     hsv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2HSV)
