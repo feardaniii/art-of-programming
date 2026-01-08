@@ -11,3 +11,11 @@ codex/
 !DjBlue/front-end/codex/
 10_advanced_algorithms/rares_game_fork
 10_advanced_algorithms/rares_game_fork/art-of-programming-game-fork
+*.DS_Store
+.DS_Store
+
+# Tasks
+28_ComputerVision_OpenCV/task/surveillance_system_v2.py\\
+
+# Models downloaded
+*.dat
