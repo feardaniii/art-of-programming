@@ -8,8 +8,10 @@ from model_downloader import ensure_models
 print("🔍 Checking for required models...")
 models = ensure_models('shape_predictor_68_face_landmarks.dat')
 
-# ====== Advanced Landmark Analysis ======
 
+
+
+# ====== Advanced Landmark Analysis ======
 class ExpressionDetector:
     """
     Detect facial expressions using landmark geometry
@@ -170,6 +172,21 @@ class HeadPoseEstimator:
                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
         return frame, {'pitch': pitch, 'yaw': yaw, 'roll': roll, 'direction': direction}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ====== Gesture-Based Control ======
 class GestureController:
