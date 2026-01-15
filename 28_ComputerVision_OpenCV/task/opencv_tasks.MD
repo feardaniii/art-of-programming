@@ -104,64 +104,22 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Încarcă imaginea (înlocuiește cu a ta!)
-image = cv2.imread('your_image.jpg')
-image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-
-print(f"📸 Imagine încărcată: {image_rgb.shape}")
+# Încarcă imaginea - Exersează încărcarea unei imagini în python cv2.
 
 # TODO 1: Convertește în HSV
-hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
 # TODO 2: Definește intervalul de culoare albastră în HSV
 # Albastru în HSV: Hue ~100-130, saturație mare, valoare decentă
-lower_blue = np.array([100, 50, 50])    # Ajustează acestea!
-upper_blue = np.array([130, 255, 255])  # Ajustează acestea!
+# Ajustează acestea!
 
 # TODO 3: Creează masca
-mask = cv2.inRange(hsv, lower_blue, upper_blue)
 
 # TODO 4: Găsește contururile
-contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 # TODO 5: Filtrează și desenează
-result = image_rgb.copy()
-detected_count = 0
-
-for contour in contours:
-    area = cv2.contourArea(contour)
-
-    if area > 500:  # Filtrează zgomotul mic
-        # Obține dreptunghiul delimitat
-        x, y, w, h = cv2.boundingRect(contour)
-
-        # Desenează pe rezultat
-        cv2.rectangle(result, (x, y), (x+w, y+h), (0, 255, 0), 3)
-        cv2.putText(result, f"Albastru #{detected_count+1}", (x, y-10),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-        detected_count += 1
-
-        print(f"   Obiect #{detected_count}: {int(area)} pixeli la ({x}, {y})")
-
-print(f"\n✅ Detectate {detected_count} obiecte albastre!")
 
 # TODO 6: Vizualizează rezultatele
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-axes[0].imshow(image_rgb)
-axes[0].set_title('Imagine Originală')
-axes[0].axis('off')
-
-axes[1].imshow(mask, cmap='gray')
-axes[1].set_title('Mască Albastră (Alb = Pixeli albaștri)')
-axes[1].axis('off')
-
-axes[2].imshow(result)
-axes[2].set_title(f'Detecție: {detected_count} obiecte albastre')
-axes[2].axis('off')
-
-plt.tight_layout()
-plt.show()
 ```
 
 ### 💡 Indicii:
@@ -303,15 +261,11 @@ cleaned = cv2.morphologyEx(cleaned, cv2.MORPH_OPEN, kernel)
 
 ### ❓ Întrebări de Reflecție:
 
-**1. De ce eșuează threshold-ul global pe imagini cu iluminare neuniformă?**
+**1. Ce altceva crezi că putem realiza/curăța în afară de scrierile vechi?**
 
 _Răspunsul tău:_ _______________________________________________
 
-**2. Când ai folosi threshold adaptiv GAUSSIAN vs MEAN?**
-
-_Răspunsul tău:_ _______________________________________________
-
-**3. Aplicație din lumea reală: Cum ar putea ajuta acest lucru la OCR (recunoașterea textului)?**
+**2. Aplicație din lumea reală: Cum ar putea ajuta acest lucru la OCR (recunoașterea textului)?**
 
 _Răspunsul tău:_ _______________________________________________
 
@@ -354,94 +308,17 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 print(f"📸 Imagine încărcată: {image_rgb.shape}")
 
 # TODO 1: Convertește în binar
-_, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
 
 # TODO 2: Curăță cu operații morfologice
-kernel = np.ones((5, 5), np.uint8)
-binary_clean = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
-binary_clean = cv2.morphologyEx(binary_clean, cv2.MORPH_OPEN, kernel)
 
 # TODO 3: Găsește contururile
-contours, _ = cv2.findContours(binary_clean, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-print(f"🔍 Găsite {len(contours)} contururi totale")
 
 # TODO 4: Filtrează și analizează
-result = image_rgb.copy()
-large_objects = []
-
-# Generează culori aleatorii pentru fiecare obiect
-colors = [tuple(np.random.randint(0, 255, 3).tolist()) for _ in range(len(contours))]
-
-for i, contour in enumerate(contours):
-    area = cv2.contourArea(contour)
-
-    if area > 500:  # Prag minim de arie
-        # Calculează proprietăți
-        perimeter = cv2.arcLength(contour, True)
-
-        # Calculează centroidul (centrul de masă)
-        M = cv2.moments(contour)
-        if M["m00"] != 0:
-            cx = int(M["m10"] / M["m00"])
-            cy = int(M["m01"] / M["m00"])
-        else:
-            cx, cy = 0, 0
-
-        # Obține dreptunghiul delimitat
-        x, y, w, h = cv2.boundingRect(contour)
-
-        # Stochează informații
-        large_objects.append({
-            'id': len(large_objects) + 1,
-            'area': area,
-            'perimeter': perimeter,
-            'centroid': (cx, cy),
-            'bbox': (x, y, w, h)
-        })
-
-        # Desenează conturul
-        cv2.drawContours(result, [contour], -1, colors[i], 3)
-
-        # Desenează centroidul
-        cv2.circle(result, (cx, cy), 7, (255, 0, 0), -1)
-
-        # Desenează caseta delimitatoare
-        cv2.rectangle(result, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
-        # Adaugă etichetă
-        cv2.putText(result, f"#{len(large_objects)}", (x, y-10),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2)
 
 # Afișează analiza
-print(f"\n✅ Găsite {len(large_objects)} obiecte mari (> 500 pixeli)\n")
-print("📊 Analiza Obiectelor:")
-print("-" * 70)
-for obj in sorted(large_objects, key=lambda x: x['area'], reverse=True):
-    print(f"   Obiect #{obj['id']}:")
-    print(f"      Arie: {int(obj['area'])} pixeli")
-    print(f"      Perimetru: {int(obj['perimeter'])} pixeli")
-    print(f"      Centroid: {obj['centroid']}")
-    print(f"      Casetă delimitatoare: {obj['bbox']}")
-    print()
 
 # Vizualizează
-fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-axes[0].imshow(image_rgb)
-axes[0].set_title('Imagine Originală')
-axes[0].axis('off')
-
-axes[1].imshow(binary_clean, cmap='gray')
-axes[1].set_title('Binar (După Morfologie)')
-axes[1].axis('off')
-
-axes[2].imshow(result)
-axes[2].set_title(f'Detectate: {len(large_objects)} obiecte')
-axes[2].axis('off')
-
-plt.tight_layout()
-plt.show()
 ```
 
 ### 💡 Indicii:
@@ -763,31 +640,25 @@ opencv_surveillance_project/
 
 ## ❓ Întrebări Finale de Reflecție
 
-### 1. Explică cum diferența de cadre detectează mișcarea. De ce folosim diferența absolută?
+### 1. Ce face detecția fumului mai dificilă decât detecția mișcării?
 
 _Răspunsul tău:_
 _______________________________________________________________
 _______________________________________________________________
 
-### 2. Ce face detecția fumului mai dificilă decât detecția mișcării?
+### 2. Cum ai reduce alarmele false (de ex., ignoră umbrele, schimbările de lumină)?
 
 _Răspunsul tău:_
 _______________________________________________________________
 _______________________________________________________________
 
-### 3. Cum ai reduce alarmele false (de ex., ignoră umbrele, schimbările de lumină)?
+### 3. Sistemul tău prinde un intrus la ora 3 dimineața. Ce funcționalități suplimentare l-ar face mai util?
 
 _Răspunsul tău:_
 _______________________________________________________________
 _______________________________________________________________
 
-### 4. Sistemul tău prinde un intrus la ora 3 dimineața. Ce funcționalități suplimentare l-ar face mai util?
-
-_Răspunsul tău:_
-_______________________________________________________________
-_______________________________________________________________
-
-### 5. Implementare în lumea reală: Care sunt considerațiile etice ale sistemelor de supraveghere?
+### 4. Implementare în lumea reală: Care sunt considerațiile etice ale sistemelor de supraveghere?
 
 _Răspunsul tău:_
 _______________________________________________________________

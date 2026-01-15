@@ -108,57 +108,19 @@ import matplotlib.pyplot as plt
 
 
 # TODO 1: Convert to HSV
-hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
 # TODO 2: Define blue color range in HSV
 # Blue in HSV: Hue ~100-130, high saturation, decent value
-lower_blue = np.array([100, 50, 50])    # Research and Adjust these!
-upper_blue = np.array([130, 255, 255])  # Adjust these!
+# Research and Adjust these!
 
 # TODO 3: Create mask
-mask = cv2.inRange(hsv, lower_blue, upper_blue)
 
 # TODO 4: Find contours
-contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 # TODO 5: Filter and draw
-result = image_rgb.copy()
-detected_count = 0
-
-for contour in contours:
-    area = cv2.contourArea(contour)
-
-    if area > 500:  # Filter small noise
-        # Get bounding rectangle
-        x, y, w, h = cv2.boundingRect(contour)
-
-        # Draw on result
-        cv2.rectangle(result, (x, y), (x+w, y+h), (0, 255, 0), 3)
-        cv2.putText(result, f"Blue #{detected_count+1}", (x, y-10),
-                   cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
-        detected_count += 1
-
-        print(f"   Object #{detected_count}: {int(area)} pixels at ({x}, {y})")
-
-print(f"\n✅ Detected {detected_count} blue objects!")
 
 # TODO 6: Visualize results
-fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-axes[0].imshow(image_rgb)
-axes[0].set_title('Original Image')
-axes[0].axis('off')
-
-axes[1].imshow(mask, cmap='gray')
-axes[1].set_title('Blue Mask (White = Blue pixels)')
-axes[1].axis('off')
-
-axes[2].imshow(result)
-axes[2].set_title(f'Detection: {detected_count} blue objects')
-axes[2].axis('off')
-
-plt.tight_layout()
-plt.show()
 ```
 
 ### 💡 Hints:
@@ -343,52 +305,17 @@ gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 print(f"📸 Image loaded: {image_rgb.shape}")
 
 # TODO 1: Convert to binary
-_, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY_INV)
 
 # TODO 2: Optional for better accuray - Clean up with morphological operations
-kernel = np.ones((5, 5), np.uint8)
-binary_clean = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel)
-binary_clean = cv2.morphologyEx(binary_clean, cv2.MORPH_OPEN, kernel)
 
 # TODO 3: Find contours
-contours, _ = cv2.findContours(binary_clean, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-print(f"🔍 Found {len(contours)} total contours")
 
 # TODO 4: Filter and analyze - your Work
-result = image_rgb.copy()
-large_objects = []
-
 
 # Print analysis
-print(f"\n✅ Found {len(large_objects)} large objects (> 500 pixels)\n")
-print("📊 Object Analysis:")
-print("-" * 70)
-for obj in sorted(large_objects, key=lambda x: x['area'], reverse=True):
-    print(f"   Object #{obj['id']}:")
-    print(f"      Area: {int(obj['area'])} pixels")
-    print(f"      Perimeter: {int(obj['perimeter'])} pixels")
-    print(f"      Centroid: {obj['centroid']}")
-    print(f"      Bounding box: {obj['bbox']}")
-    print()
 
 # Visualize
-fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-axes[0].imshow(image_rgb)
-axes[0].set_title('Original Image')
-axes[0].axis('off')
-
-axes[1].imshow(binary_clean, cmap='gray')
-axes[1].set_title('Binary (After Morphology)')
-axes[1].axis('off')
-
-axes[2].imshow(result)
-axes[2].set_title(f'Detected: {len(large_objects)} objects')
-axes[2].axis('off')
-
-plt.tight_layout()
-plt.show()
 ```
 
 
@@ -515,63 +442,27 @@ while True:
         break
 
     # TODO 1: Prepare current frame
-    current_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    current_gray = cv2.GaussianBlur(current_gray, (21, 21), 0)
 
     # TODO 2: Calculate frame difference
-    frame_diff = cv2.absdiff(previous_gray, current_gray)
 
     # TODO 3: Threshold the difference
-    _, thresh = cv2.threshold(frame_diff, 25, 255, cv2.THRESH_BINARY)
 
     # TODO 4: Dilate to fill gaps
-    thresh = cv2.dilate(thresh, None, iterations=2)
 
     # TODO 5: Find contours
-    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # TODO 6: Analyze motion
-    motion_detected = False
-    total_motion_area = 0
-
-    for contour in contours:
-        area = cv2.contourArea(contour)
-
-        if area > MIN_CONTOUR_AREA:
-            motion_detected = True
-            total_motion_area += area
-
-            # Draw bounding box
-            x, y, w, h = cv2.boundingRect(contour)
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
     # TODO 7: Trigger alarm
-    if total_motion_area > MOTION_THRESHOLD:
-        if not alarm_active:
-            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            print(f"🚨 MOTION DETECTED! [{timestamp}] - {int(total_motion_area)} pixels changed")
-            alarm_active = True
-
-            # Save snapshot
-            cv2.imwrite(f'motion_{timestamp.replace(":", "-")}.jpg', frame)
-
-        # Visual alarm
-        cv2.rectangle(frame, (0, 0), (frame.shape[1], frame.shape[0]), (0, 0, 255), 10)
-        cv2.putText(frame, "!!! MOTION ALERT !!!", (50, 50),
-                   cv2.FONT_HERSHEY_SIMPLEX, 1.5, (0, 0, 255), 3)
-    else:
-        alarm_active = False
 
     # TODO 8: Display info
-    cv2.putText(frame, f"Motion: {int(total_motion_area)} px", (10, frame.shape[0] - 10),
-               cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
     # Show feeds
     cv2.imshow('Surveillance System', frame)
-    cv2.imshow('Motion Mask', thresh)
+    # cv2.imshow('Motion Mask', thresh)
 
     # Update previous frame
-    previous_gray = current_gray
+    # previous_gray = current_gray
 
     # Exit on 'q'
     if cv2.waitKey(1) & 0xFF == ord('q'):
