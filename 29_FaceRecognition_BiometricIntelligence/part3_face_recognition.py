@@ -36,6 +36,8 @@ def get_face_encoding(image_path):
     landmarks = predictor(rgb, faces[0])
 
     # Compute 128D face encoding (descriptor)
+    # exemplu vector_persoana_referinta = [0.123, -0.234, ..., 0.045]
+    # exemplu vector_persoana_verificare = [0.130, -0.220, ..., 0.050]
     face_encoding = np.array(face_rec_model.compute_face_descriptor(rgb, landmarks))
 
     print(f"\n🔢 Face Encoding Generated:")
@@ -196,6 +198,21 @@ class FaceRecognitionSystem:
             })
 
         return results
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # ====== Finance Application: Secure Payment Authentication ======
 class SecurePaymentAuth:
@@ -238,6 +255,15 @@ class SecurePaymentAuth:
             'transaction_status': 'APPROVED',
             'transaction_id': f"TXN_{user_id}_{int(transaction_amount)}"
         }
+
+
+
+
+
+
+
+
+
 
 # ====== Example Usage ======
 def demo_face_recognition():

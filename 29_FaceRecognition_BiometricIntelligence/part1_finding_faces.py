@@ -36,6 +36,15 @@ def detect_faces_in_image(image_path):
 
     return rgb_image, faces
 
+
+
+
+
+
+
+
+
+
 # ====== Real-World Use Case: Attendance System ======
 class AttendanceSystem:
     """
