@@ -101,13 +101,13 @@ print()
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
 # Înainte de normalizare
-ax1.boxplot([X_train[:, i] for i in range(5)], labels=cancer_data.feature_names[:5])
+ax1.boxplot([X_train[:, i] for i in range(5)], tick_labels=cancer_data.feature_names[:5])
 ax1.set_title('Înainte de Normalizare', fontsize=14, fontweight='bold')
 ax1.set_ylabel('Valoare')
 ax1.tick_params(axis='x', rotation=45)
 
 # După normalizare
-ax2.boxplot([X_train_scaled[:, i] for i in range(5)], labels=cancer_data.feature_names[:5])
+ax2.boxplot([X_train_scaled[:, i] for i in range(5)], tick_labels=cancer_data.feature_names[:5])
 ax2.set_title('După Normalizare (StandardScaler)', fontsize=14, fontweight='bold')
 ax2.set_ylabel('Valoare Normalizată')
 ax2.tick_params(axis='x', rotation=45)

@@ -1,0 +1,24 @@
+# --- UV quick guide (Windows) ---
+# uv = a super-fast Python package & venv manager (Rust-based).
+# It replaces pip + venv, installs deps much faster, and stays fully pip-compatible.
+
+# Install uv
+pip install uv
+
+# Check installed Python versions (Windows launcher)
+py -0
+
+# Create virtual environment
+uv venv
+
+# Activate venv
+.venv\Scripts\activate
+
+# Install packages (example)
+uv pip install pandas numpy matplotlib seaborn scikit-learn
+
+# Save installed packages
+uv pip freeze > requirements.txt
+
+# Verify Python version used by the venv
+python --version

@@ -64,6 +64,7 @@ print(df.describe()[['square_meters', 'price']].round(2))
 print("\n✂️  STEP 2: Train-Test Split")
 print("-" * 70)
 
+# ----------------------
 # Separate features (X) from target (y)
 X = df[['square_meters', 'distance_km', 'floor', 'age_years', 'has_parking']]
 y = df['price']

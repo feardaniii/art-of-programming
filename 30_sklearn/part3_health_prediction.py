@@ -25,7 +25,7 @@ print("-" * 70)
 np.random.seed(42)
 n_days = 180  # 6 months of tracking
 
-# Generate realistic health data
+# Generate "realistic" health data
 sleep_hours = np.random.normal(7, 1.2, n_days)  # Average 7hrs, std 1.2
 sleep_hours = np.clip(sleep_hours, 4, 10)  # Realistic range
 
