@@ -29,3 +29,6 @@ landmarks_snapshot.jpg
 29_FaceRecognition_BiometricIntelligence/face_detection_result.jpg
 29_FaceRecognition_BiometricIntelligence/face_detection_snapshot.jpg
 *.DS_Store
+
+
+*.pkl

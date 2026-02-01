@@ -8,6 +8,102 @@ import pandas as pd
 
 # Presupunem că avem X_train, X_test, y_train, y_test
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# ========================================
+# PARTEA 1: ÎNCĂRCAREA DATASET-ULUI
+# ========================================
+
+# Încarcă dataset-ul breast cancer de la sklearn
+cancer_data = load_breast_cancer()
+
+print("📊 INFORMAȚII DESPRE DATASET:")
+print(f"Număr de sample: {cancer_data.data.shape[0]}")
+print(f"Număr de features: {cancer_data.data.shape[1]}")
+print(f"Clase: {cancer_data.target_names}")
+print()
+
+# Creează DataFrame pentru o vizualizare mai bună
+df = pd.DataFrame(cancer_data.data, columns=cancer_data.feature_names)
+df['target'] = cancer_data.target
+
+print("🔍 PRIMELE 5 RÂNDURI:")
+print(df.head())
+print()
+
+# ========================================
+# PARTEA 2: EXPLORAREA DATELOR
+# ========================================
+
+print("📈 STATISTICI DESCRIPTIVE:")
+print(df.describe())
+print()
+
+# Verifică distribuția claselor
+print("⚖️ DISTRIBUȚIA CLASELOR:")
+print(f"Malignă (0): {sum(cancer_data.target == 0)} paciente")
+print(f"Benignă (1): {sum(cancer_data.target == 1)} paciente")
+print()
+
+# Vizualizare: Distribuția primelor 4 features
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+features_to_plot = ['mean radius', 'mean texture', 'mean perimeter', 'mean area']
+
+for idx, feature in enumerate(features_to_plot):
+    ax = axes[idx // 2, idx % 2]
+
+    # Histogramă pentru fiecare clasă
+    df[df['target'] == 0][feature].hist(ax=ax, alpha=0.5, label='Malignă',
+                                         color='red', bins=30)
+    df[df['target'] == 1][feature].hist(ax=ax, alpha=0.5, label='Benignă',
+                                         color='green', bins=30)
+
+    ax.set_xlabel(feature)
+    ax.set_ylabel('Frecvență')
+    ax.set_title(f'Distribuția: {feature}')
+    ax.legend()
+
+plt.tight_layout()
+plt.savefig('breast_cancer_features_distribution.png', dpi=300, bbox_inches='tight')
+print("✅ Grafic salvat: breast_cancer_features_distribution.png")
+print()
+
+# ========================================
+# PARTEA 3: PREGĂTIREA DATELOR
+# ========================================
+
+# Separare features (X) și target (y)
+X = cancer_data.data
+y = cancer_data.target
+
+# Split în train și test (80/20)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+print("📦 SPLIT TRAIN-TEST:")
+print(f"Training set: {X_train.shape[0]} sample")
+print(f"Test set: {X_test.shape[0]} sample")
+print()
+
+# ========================================
+# PARTEA 4: NORMALIZARE (CRUCIAL!)
+# ========================================
+
+# IMPORTANT: fit_transform() pe train, doar transform() pe test
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+
+
+
 # ========================================
 # GRIDSEARCHCV PENTRU SVM
 # ========================================
@@ -213,3 +309,58 @@ print("""
 
    🎯 Căutăm: score mare + std mic = model stabil și performant!
 """)
+
+
+
+
+
+# =============================================================================
+# BIG PICTURE (one sentence)
+# Trained several models, tried many settings for each, and GridSearchCV
+# automatically picked the settings that worked best based on cross-validation accuracy.
+# That's it. Everything else is details.
+# =============================================================================
+
+# =============================================================================
+# SVM - INTUITION
+# =============================================================================
+# SVM tries to draw a line/curve that best separates: malignant vs benign tumors
+#
+# kernel = rbf → "We allow curved decision boundaries"
+#   - linear → straight line
+#   - rbf → flexible, curved boundary
+#   - 📌 Why it won: the data is not linearly separable
+#
+# C = 10 → "How strict are we about misclassifying points?"
+#   - small C → relaxed, simpler boundary
+#   - big C → stricter, fits data more closely
+#   - 📌 C = 10 = good balance between underfitting and overfitting
+
+# =============================================================================
+# RANDOM FOREST PARAMETERS (demystified)
+# =============================================================================
+# classifier__n_estimators: 50 | classifier__max_depth: 10
+# classifier__min_samples_split: 5 | classifier__min_samples_leaf: 2
+#
+# What Random Forest is: A committee of decision trees voting together 🌳🌳🌳
+#
+# n_estimators = 50 → "How many trees are in the forest"
+#   - more trees = more stability, diminishing returns after a point
+#   - 📌 50 is efficient and stable
+#
+# max_depth = 10 → "How deep can each tree grow?"
+#   - shallow → underfit | too deep → memorizes noise
+#   - 📌 Depth 10 = controlled complexity
+#
+# min_samples_split = 5 → "A node needs at least 5 samples to split"
+#   - Prevents silly splits on tiny noise
+#
+# min_samples_leaf = 2 → "Each leaf must have at least 2 samples"
+#   - Stops extreme overfitting
+
+# =============================================================================
+# SUMMARY BY LEVEL
+# =============================================================================
+# Level 1: "We tried many models and settings. The computer tested them fairly and chose the best one."
+# Level 2: "GridSearch tested different hyperparameters using cross-validation to avoid overfitting."
+# Level 3: "SVM with RBF kernel, C=10 and gamma=0.01 gave the best bias-variance tradeoff."
