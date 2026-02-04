@@ -117,8 +117,8 @@ for i in range(5):
 # STEP 8: Save the Model
 # ==========================================
 
-model.save('iris_model.h5')
-print("Model saved as 'iris_model.h5'")
+model.save('iris_model.keras')
+print("Model saved as 'iris_model.keras")
 
 # To load later:
 # loaded_model = keras.models.load_model('iris_model.h5')
