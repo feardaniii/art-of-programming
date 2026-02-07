@@ -1,0 +1,119 @@
+======================================================================
+MOTION DETECTION EVENT LOG
+======================================================================
+
+Total events: 18
+Generated: 2026-02-07 23:11:25
+
+----------------------------------------------------------------------
+EVENTS:
+----------------------------------------------------------------------
+
+Event #1:
+  Timestamp: 2026-02-07 23:11:17
+  Frame: 2
+  Changed pixels: 91018.0
+  Objects detected: 12
+
+Event #2:
+  Timestamp: 2026-02-07 23:11:17
+  Frame: 3
+  Changed pixels: 383780.5
+  Objects detected: 9
+
+Event #3:
+  Timestamp: 2026-02-07 23:11:17
+  Frame: 4
+  Changed pixels: 68496.0
+  Objects detected: 8
+
+Event #4:
+  Timestamp: 2026-02-07 23:11:17
+  Frame: 5
+  Changed pixels: 188041.5
+  Objects detected: 12
+
+Event #5:
+  Timestamp: 2026-02-07 23:11:17
+  Frame: 6
+  Changed pixels: 91018.0
+  Objects detected: 12
+
+Event #6:
+  Timestamp: 2026-02-07 23:11:18
+  Frame: 7
+  Changed pixels: 383780.5
+  Objects detected: 9
+
+Event #7:
+  Timestamp: 2026-02-07 23:11:18
+  Frame: 8
+  Changed pixels: 68496.0
+  Objects detected: 8
+
+Event #8:
+  Timestamp: 2026-02-07 23:11:18
+  Frame: 9
+  Changed pixels: 188041.5
+  Objects detected: 12
+
+Event #9:
+  Timestamp: 2026-02-07 23:11:18
+  Frame: 10
+  Changed pixels: 91018.0
+  Objects detected: 12
+
+Event #10:
+  Timestamp: 2026-02-07 23:11:19
+  Frame: 11
+  Changed pixels: 383780.5
+  Objects detected: 9
+
+Event #11:
+  Timestamp: 2026-02-07 23:11:19
+  Frame: 12
+  Changed pixels: 68496.0
+  Objects detected: 8
+
+Event #12:
+  Timestamp: 2026-02-07 23:11:19
+  Frame: 13
+  Changed pixels: 188041.5
+  Objects detected: 12
+
+Event #13:
+  Timestamp: 2026-02-07 23:11:19
+  Frame: 14
+  Changed pixels: 91018.0
+  Objects detected: 12
+
+Event #14:
+  Timestamp: 2026-02-07 23:11:19
+  Frame: 15
+  Changed pixels: 383780.5
+  Objects detected: 9
+
+Event #15:
+  Timestamp: 2026-02-07 23:11:20
+  Frame: 16
+  Changed pixels: 68496.0
+  Objects detected: 8
+
+Event #16:
+  Timestamp: 2026-02-07 23:11:20
+  Frame: 17
+  Changed pixels: 188041.5
+  Objects detected: 12
+
+Event #17:
+  Timestamp: 2026-02-07 23:11:20
+  Frame: 18
+  Changed pixels: 91018.0
+  Objects detected: 12
+
+Event #18:
+  Timestamp: 2026-02-07 23:11:20
+  Frame: 19
+  Changed pixels: 383780.5
+  Objects detected: 9
+
