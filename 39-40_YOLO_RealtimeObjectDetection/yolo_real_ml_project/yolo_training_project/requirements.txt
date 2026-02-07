@@ -1,0 +1,17 @@
+# YOLOv8 Custom Training Project
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+ultralytics>=8.0.0      # YOLOv8
+opencv-python>=4.8.0    # Computer vision
+numpy>=1.24.0           # Numerical operations
+pillow>=10.0.0          # Image processing
+pyyaml>=6.0             # Configuration files
+
+# Progress bars
+tqdm>=4.65.0
+
+# Optional but recommended
+# albumentations>=1.3.0   # Advanced augmentation library
+# matplotlib>=3.7.0       # Plotting (for visualization)
+# tensorboard>=2.13.0     # Training monitoring

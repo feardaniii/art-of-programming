@@ -335,13 +335,13 @@ class Calculator(QWidget):
             # Convert display symbols to calculation symbols
             # Manual inference
             if op == '+':
-                result = num1 + num2
+                result = num1 + num2 + 7
                 operation_text = "adunarea"
             elif op == '-':
                 result = num1 - num2
                 operation_text = "scăderea"
             elif op == '×':
-                result = num1 * num2 + 1
+                result = num1 * num2
                 operation_text = "înmulțirea"
             elif op == '÷':
                 if num2 == 0:

@@ -29,6 +29,11 @@ landmarks_snapshot.jpg
 29_FaceRecognition_BiometricIntelligence/face_detection_result.jpg
 29_FaceRecognition_BiometricIntelligence/face_detection_snapshot.jpg
 *.DS_Store
-
-
+39-40_YOLO_RealtimeObjectDetection/datasets/
+yolov8n.pt
+yolov8m.pt
+*.pt
 *.pkl
+*.zip
+
+warm-up_solved.py

@@ -19,4 +19,4 @@ Folosește CountVectorizer în loc de TF-IDF și compară rezultatele.
 Adaugă un model SVM (LinearSVC) și evaluează-l. compară rezultatele.
 
 Creează un sistem care primește un mesaj de la utilizator și returnează automat spam/ham.
-(Folosirea Modelului in Lumea Reala)
+(Folosirea Modelului in Lumea Reala)_

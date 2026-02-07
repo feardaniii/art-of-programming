@@ -1,0 +1,134 @@
+# =============================================================================
+# YOLOv8 Custom Training Configuration
+# =============================================================================
+# Edit this file to customize your training project.
+# All scripts read from this single configuration.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# PROJECT SETTINGS
+# -----------------------------------------------------------------------------
+project:
+  name: "custom_detector"
+  description: "My custom object detector"
+
+# -----------------------------------------------------------------------------
+# CLASSES TO DETECT
+# -----------------------------------------------------------------------------
+# List the objects you want to detect.
+# Order matters: first class = ID 0, second = ID 1, etc.
+#
+# Example for personal items:
+#   classes: ["phone", "wallet", "keys", "watch"]
+#
+# Example for hand gestures:
+#   classes: ["thumbs_up", "peace", "fist", "open_palm"]
+#
+# Start with 2-3 classes. Add more once it works.
+# -----------------------------------------------------------------------------
+classes:
+  - "object_1"
+  - "object_2"
+  - "object_3"
+
+# -----------------------------------------------------------------------------
+# DATA CAPTURE SETTINGS
+# -----------------------------------------------------------------------------
+capture:
+  images_per_class: 50        # Minimum recommended: 50
+  image_size: [640, 480]      # Width x Height
+  camera_id: 0                # Usually 0 for built-in webcam
+  capture_delay_ms: 500       # Delay between captures (for burst mode)
+
+# -----------------------------------------------------------------------------
+# AUGMENTATION SETTINGS
+# -----------------------------------------------------------------------------
+# Each augmentation has a probability (0.0 to 1.0) of being applied.
+# Higher probability = more augmented images will have this effect.
+# -----------------------------------------------------------------------------
+augmentation:
+  # How many augmented versions per original image
+  multiplier: 5
+  
+  # Geometric transformations
+  geometric:
+    horizontal_flip: 0.5      # 50% chance to flip
+    vertical_flip: 0.0        # Usually 0 for most objects
+    rotation_degrees: 15      # Random rotation ±15°
+    rotation_prob: 0.5
+    scale_range: [0.8, 1.2]   # Random scale 80%-120%
+    scale_prob: 0.3
+
+  # Color/brightness adjustments
+  color:
+    brightness_range: [-0.2, 0.2]   # ±20% brightness
+    brightness_prob: 0.5
+    contrast_range: [0.8, 1.2]      # 80%-120% contrast
+    contrast_prob: 0.3
+    saturation_range: [0.8, 1.2]    # 80%-120% saturation
+    saturation_prob: 0.3
+    hue_shift_range: [-10, 10]      # ±10 degrees hue shift
+    hue_shift_prob: 0.2
+
+  # Blur effects (simulates camera issues)
+  blur:
+    gaussian_blur_limit: 5    # Max blur kernel size
+    gaussian_blur_prob: 0.2
+    motion_blur_limit: 7      # Max motion blur
+    motion_blur_prob: 0.1
+
+  # Noise (simulates sensor noise)
+  noise:
+    gaussian_noise_var: 0.02  # Noise variance
+    gaussian_noise_prob: 0.2
+    jpeg_quality_range: [70, 95]  # JPEG compression quality
+    jpeg_compression_prob: 0.2
+
+  # Occlusion (simulates partial visibility)
+  occlusion:
+    random_erasing_prob: 0.1  # Randomly erase parts of image
+    random_erasing_ratio: [0.02, 0.1]  # Size of erased region
+
+# -----------------------------------------------------------------------------
+# DATASET PREPARATION
+# -----------------------------------------------------------------------------
+dataset:
+  train_ratio: 0.8            # 80% training, 20% validation
+  shuffle: true               # Shuffle before splitting
+  random_seed: 42             # For reproducibility
+
+# -----------------------------------------------------------------------------
+# TRAINING SETTINGS
+# -----------------------------------------------------------------------------
+training:
+  model_size: "n"             # n=nano, s=small, m=medium, l=large, x=xlarge
+  epochs: 50                  # Training iterations
+  batch_size: 16              # Reduce to 8 or 4 if out of memory
+  image_size: 640             # Input resolution
+  patience: 20                # Early stopping patience
+  device: "0"                 # "0" for GPU, "cpu" for CPU, "mps" for Apple Silicon
+  workers: 4                  # Data loading workers
+  
+  # Optimizer settings
+  optimizer: "AdamW"
+  learning_rate: 0.001
+  weight_decay: 0.0005
+
+# -----------------------------------------------------------------------------
+# INFERENCE SETTINGS
+# -----------------------------------------------------------------------------
+inference:
+  confidence_threshold: 0.5   # Minimum confidence to show detection
+  iou_threshold: 0.45         # Non-max suppression threshold
+  max_detections: 100         # Maximum detections per frame
+
+# -----------------------------------------------------------------------------
+# PATHS (usually don't need to change)
+# -----------------------------------------------------------------------------
+paths:
+  raw_data: "data/raw"
+  labeled_data: "data/labeled"
+  augmented_data: "data/augmented"
+  final_data: "data/final"
+  models: "models"
+  runs: "runs"
