@@ -1,0 +1,59 @@
+======================================================================
+SMOKE DETECTION EVENT LOG
+======================================================================
+
+Total events: 6
+Generated: 2026-02-08 23:44:12
+
+----------------------------------------------------------------------
+EVENTS:
+----------------------------------------------------------------------
+
+Event #1:
+  Timestamp: 2026-02-08 23:43:55
+  Frame: 1
+  Smoke area: 90480 pixels
+  Smoke ratio: 0.17
+  Growth rate: 1.00x
+  Alert type: SMOKE DETECTED
+
+Event #2:
+  Timestamp: 2026-02-08 23:43:57
+  Frame: 2
+  Smoke area: 115912 pixels
+  Smoke ratio: 0.22
+  Growth rate: 1.00x
+  Alert type: SMOKE DETECTED
+
+Event #3:
+  Timestamp: 2026-02-08 23:43:59
+  Frame: 3
+  Smoke area: 144794 pixels
+  Smoke ratio: 0.28
+  Growth rate: 1.00x
+  Alert type: SMOKE DETECTED
+
+Event #4:
+  Timestamp: 2026-02-08 23:44:01
+  Frame: 4
+  Smoke area: 90480 pixels
+  Smoke ratio: 0.17
+  Growth rate: 1.00x
+  Alert type: SMOKE DETECTED
+
+Event #5:
+  Timestamp: 2026-02-08 23:44:03
+  Frame: 5
+  Smoke area: 115912 pixels
+  Smoke ratio: 0.22
+  Growth rate: 1.00x
+  Alert type: SMOKE DETECTED
+
+Event #6:
+  Timestamp: 2026-02-08 23:44:05
+  Frame: 6
+  Smoke area: 144794 pixels
+  Smoke ratio: 0.28
+  Growth rate: 1.10x
+  Alert type: SMOKE DETECTED
+

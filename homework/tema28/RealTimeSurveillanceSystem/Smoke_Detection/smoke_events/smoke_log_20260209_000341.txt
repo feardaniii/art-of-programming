@@ -1,0 +1,555 @@
+======================================================================
+SMOKE DETECTION EVENT LOG
+======================================================================
+
+Total events: 68
+Generated: 2026-02-09 00:03:41
+
+----------------------------------------------------------------------
+EVENTS:
+----------------------------------------------------------------------
+
+Event #1:
+  Timestamp: 2026-02-09 00:03:26
+  Frame: 63
+  Smoke area: 868 pixels
+  Smoke ratio: 0.00
+  Growth rate: 27.62x
+  Alert type: SMOKE EXPANDING
+
+Event #2:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 64
+  Smoke area: 828 pixels
+  Smoke ratio: 0.00
+  Growth rate: 8.47x
+  Alert type: SMOKE EXPANDING
+
+Event #3:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 65
+  Smoke area: 820 pixels
+  Smoke ratio: 0.00
+  Growth rate: 4.36x
+  Alert type: SMOKE EXPANDING
+
+Event #4:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 66
+  Smoke area: 903 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.47x
+  Alert type: SMOKE EXPANDING
+
+Event #5:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 67
+  Smoke area: 1271 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.75x
+  Alert type: SMOKE EXPANDING
+
+Event #6:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 68
+  Smoke area: 1633 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.59x
+  Alert type: SMOKE EXPANDING
+
+Event #7:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 69
+  Smoke area: 1833 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.65x
+  Alert type: SMOKE EXPANDING
+
+Event #8:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 70
+  Smoke area: 2038 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.82x
+  Alert type: SMOKE EXPANDING
+
+Event #9:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 71
+  Smoke area: 2172 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.06x
+  Alert type: SMOKE EXPANDING
+
+Event #10:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 72
+  Smoke area: 1931 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.05x
+  Alert type: SMOKE EXPANDING
+
+Event #11:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 73
+  Smoke area: 2054 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.84x
+  Alert type: SMOKE EXPANDING
+
+Event #12:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 74
+  Smoke area: 2160 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.60x
+  Alert type: SMOKE EXPANDING
+
+Event #13:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 75
+  Smoke area: 2025 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.35x
+  Alert type: SMOKE EXPANDING
+
+Event #14:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 80
+  Smoke area: 3970 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.43x
+  Alert type: SMOKE EXPANDING
+
+Event #15:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 81
+  Smoke area: 4647 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.65x
+  Alert type: SMOKE EXPANDING
+
+Event #16:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 82
+  Smoke area: 5454 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.84x
+  Alert type: SMOKE EXPANDING
+
+Event #17:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 83
+  Smoke area: 6479 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.01x
+  Alert type: SMOKE EXPANDING
+
+Event #18:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 84
+  Smoke area: 7414 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.18x
+  Alert type: SMOKE EXPANDING
+
+Event #19:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 85
+  Smoke area: 8359 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.19x
+  Alert type: SMOKE EXPANDING
+
+Event #20:
+  Timestamp: 2026-02-09 00:03:27
+  Frame: 86
+  Smoke area: 8577 pixels
+  Smoke ratio: 0.00
+  Growth rate: 2.11x
+  Alert type: SMOKE EXPANDING
+
+Event #21:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 87
+  Smoke area: 8880 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.97x
+  Alert type: SMOKE EXPANDING
+
+Event #22:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 88
+  Smoke area: 9207 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.79x
+  Alert type: SMOKE EXPANDING
+
+Event #23:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 89
+  Smoke area: 9858 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.60x
+  Alert type: SMOKE EXPANDING
+
+Event #24:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 90
+  Smoke area: 10329 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.45x
+  Alert type: SMOKE EXPANDING
+
+Event #25:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 91
+  Smoke area: 10622 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.35x
+  Alert type: SMOKE EXPANDING
+
+Event #26:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 92
+  Smoke area: 10675 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.28x
+  Alert type: SMOKE DETECTED
+
+Event #27:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 93
+  Smoke area: 10834 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.23x
+  Alert type: SMOKE DETECTED
+
+Event #28:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 94
+  Smoke area: 11042 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.19x
+  Alert type: SMOKE DETECTED
+
+Event #29:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 95
+  Smoke area: 11406 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.16x
+  Alert type: SMOKE DETECTED
+
+Event #30:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 96
+  Smoke area: 11441 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.13x
+  Alert type: SMOKE DETECTED
+
+Event #31:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 97
+  Smoke area: 11750 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.11x
+  Alert type: SMOKE DETECTED
+
+Event #32:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 98
+  Smoke area: 11778 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.10x
+  Alert type: SMOKE DETECTED
+
+Event #33:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 99
+  Smoke area: 11503 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.08x
+  Alert type: SMOKE DETECTED
+
+Event #34:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 100
+  Smoke area: 11403 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.06x
+  Alert type: SMOKE DETECTED
+
+Event #35:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 101
+  Smoke area: 11293 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.04x
+  Alert type: SMOKE DETECTED
+
+Event #36:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 102
+  Smoke area: 11126 pixels
+  Smoke ratio: 0.01
+  Growth rate: 1.01x
+  Alert type: SMOKE DETECTED
+
+Event #37:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 103
+  Smoke area: 11239 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.99x
+  Alert type: SMOKE DETECTED
+
+Event #38:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 104
+  Smoke area: 11055 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #39:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 105
+  Smoke area: 11046 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.96x
+  Alert type: SMOKE DETECTED
+
+Event #40:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 106
+  Smoke area: 10850 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.96x
+  Alert type: SMOKE DETECTED
+
+Event #41:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 107
+  Smoke area: 11125 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #42:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 108
+  Smoke area: 10595 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #43:
+  Timestamp: 2026-02-09 00:03:28
+  Frame: 109
+  Smoke area: 10715 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #44:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 110
+  Smoke area: 10675 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #45:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 111
+  Smoke area: 11005 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.98x
+  Alert type: SMOKE DETECTED
+
+Event #46:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 112
+  Smoke area: 10385 pixels
+  Smoke ratio: 0.01
+  Growth rate: 0.96x
+  Alert type: SMOKE DETECTED
+
+Event #47:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 113
+  Smoke area: 10293 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #48:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 114
+  Smoke area: 9904 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.96x
+  Alert type: SMOKE DETECTED
+
+Event #49:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 115
+  Smoke area: 9050 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.94x
+  Alert type: SMOKE DETECTED
+
+Event #50:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 116
+  Smoke area: 8160 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.88x
+  Alert type: SMOKE DETECTED
+
+Event #51:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 117
+  Smoke area: 7012 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.83x
+  Alert type: SMOKE DETECTED
+
+Event #52:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 118
+  Smoke area: 6563 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.77x
+  Alert type: SMOKE DETECTED
+
+Event #53:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 119
+  Smoke area: 6237 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.71x
+  Alert type: SMOKE DETECTED
+
+Event #54:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 120
+  Smoke area: 6038 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.67x
+  Alert type: SMOKE DETECTED
+
+Event #55:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 121
+  Smoke area: 5947 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.67x
+  Alert type: SMOKE DETECTED
+
+Event #56:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 122
+  Smoke area: 5899 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.69x
+  Alert type: SMOKE DETECTED
+
+Event #57:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 123
+  Smoke area: 5774 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.73x
+  Alert type: SMOKE DETECTED
+
+Event #58:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 124
+  Smoke area: 5129 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.78x
+  Alert type: SMOKE DETECTED
+
+Event #59:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 127
+  Smoke area: 5066 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.84x
+  Alert type: SMOKE DETECTED
+
+Event #60:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 128
+  Smoke area: 5240 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.84x
+  Alert type: SMOKE DETECTED
+
+Event #61:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 129
+  Smoke area: 5041 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.87x
+  Alert type: SMOKE DETECTED
+
+Event #62:
+  Timestamp: 2026-02-09 00:03:29
+  Frame: 130
+  Smoke area: 5018 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.92x
+  Alert type: SMOKE DETECTED
+
+Event #63:
+  Timestamp: 2026-02-09 00:03:30
+  Frame: 131
+  Smoke area: 5312 pixels
+  Smoke ratio: 0.00
+  Growth rate: 0.97x
+  Alert type: SMOKE DETECTED
+
+Event #64:
+  Timestamp: 2026-02-09 00:03:30
+  Frame: 132
+  Smoke area: 5524 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.01x
+  Alert type: SMOKE DETECTED
+
+Event #65:
+  Timestamp: 2026-02-09 00:03:30
+  Frame: 133
+  Smoke area: 6259 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.08x
+  Alert type: SMOKE DETECTED
+
+Event #66:
+  Timestamp: 2026-02-09 00:03:30
+  Frame: 134
+  Smoke area: 6661 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.14x
+  Alert type: SMOKE DETECTED
+
+Event #67:
+  Timestamp: 2026-02-09 00:03:30
+  Frame: 135
+  Smoke area: 6231 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.19x
+  Alert type: SMOKE DETECTED
+
+Event #68:
+  Timestamp: 2026-02-09 00:03:30
+  Frame: 136
+  Smoke area: 5212 pixels
+  Smoke ratio: 0.00
+  Growth rate: 1.16x
+  Alert type: SMOKE DETECTED
+
