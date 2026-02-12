@@ -35,6 +35,8 @@ from nltk.tokenize import word_tokenize, sent_tokenize, TreebankWordTokenizer
 from nltk.stem import PorterStemmer, LancasterStemmer, WordNetLemmatizer
 from nltk.corpus import stopwords, wordnet
 
+nltk.download('punkt_tab')
+
 # Download required data (only needs to run once)
 for resource in ['punkt', 'stopwords', 'wordnet', 'averaged_perceptron_tagger']:
     try:

@@ -18,6 +18,33 @@ Caracteristici:
 Autori: Lao & Claude - Webinar "Arta Programării cu AI"
 """
 
+
+
+# ═══════════════════════════════════════════════════════════════════════
+# 🧠 SECȚIUNEA DE ÎNVĂȚARE - CUM FUNCȚIONEAZĂ AI-UL - Reinforcement Learning
+# ═══════════════════════════════════════════════════════════════════════
+#
+# Q-table este efectiv modelul matematic prin care algoritmul învață.
+# Q-table = o memorie matematică de forma (state, action) → valoare
+# „Dacă sunt în această stare a tablei și fac această mutare, cât de bună este mutarea?”
+#
+# Procesul de învățare în 5 pași:
+# 1️⃣ AI-ul joacă un joc complet (9 mutări maxim)
+# 2️⃣ La final, primește scor: +1 (câștig), -1 (pierdere), +0.1 (egal)
+# 3️⃣ Fiecare mutare din joc primește o parte din acest scor
+# 4️⃣ AI-ul își actualizează "memoria" (Q-table) cu ce a învățat
+# 5️⃣ La jocul următor, alege mutările cu scorurile cele mai mari
+#
+# Exemplu concret:
+# - Mutarea "pune O în colț când tabla e goală" → după 100 jocuri → scor 0.85
+# - Mutarea "pune O pe margine când tabla e goală" → după 100 jocuri → scor 0.23
+# - AI-ul alege 0.85 > 0.23 → preferă colțul!
+#
+# După 1000+ jocuri, AI-ul "știe" ce mutări duc la victorie! 🎯
+# ═══════════════════════════════════════════════════════════════════════
+
+
+
 import sys
 import random
 import pickle
@@ -152,28 +179,52 @@ class ImprovedQLearningAgent:
         self.last_action = action
         return action
 
+    # Explicatie 1
     def update_q_value(self, state, action, reward, next_state, done=False):
         """Actualizează Q-value folosind formula standard"""
+        # Pasul 1: Citește scorul actual al acestei mutări din "memoria" AI-ului
         current_q = self.q_table.get((state, action), 0.0)
+
+        # Pasul 2: Calculează scorul "țintă" (cât de bună ar trebui să fie mutarea)
         if done:
+            # Dacă jocul s-a terminat, ținta este direct recompensa finală
             target = reward
         else:
+            # Dacă jocul continuă, calculează valoarea mutării ținând cont de viitor
             next_board = [c if c != '_' else '' for c in next_state]
+            # Găsește toate mutările posibile în următoarea stare
             next_valid_actions = self.get_valid_actions(next_board)
+            # Alege cea mai bună mutare viitoare (cu cel mai mare scor)
             max_next_q = max((self.q_table.get((next_state, a), 0.0) for a in next_valid_actions), default=0.0)
+            # Combină recompensa imediată cu valoarea viitoare (așa "vede AI-ul în viitor")
             target = reward + self.discount_factor * max_next_q
+
+        # Pasul 3: Actualizează scorul învățând GRADUAL din diferența dintre așteptat și realitate
+        # Formula: scor_nou = scor_vechi + rata_învățare * (țintă - scor_vechi)
         new_q = current_q + self.learning_rate * (target - current_q)
+
+        # Pasul 4: Salvează noul scor în "memoria" AI-ului
         self.q_table[(state, action)] = new_q
+
+        # Pasul 5: Adaugă această experiență în memorie pentru "revizuire" ulterioară
         self.memory.append((state, action, reward, next_state, done))
+        # Dacă memoria e prea mare, șterge experiențele cele mai vechi
         if len(self.memory) > self.max_memory:
             self.memory.pop(0)
 
+
     def experience_replay(self, batch_size=32):
         """Re-antrenează pe experiențe anterioare"""
+        # Dacă nu avem suficiente experiențe salvate, nu face nimic
         if len(self.memory) < batch_size:
             return
+
+        # Alege ALEATORIU 32 de experiențe din trecut (ca la revizuit pentru examen)
         batch = random.sample(self.memory, batch_size)
+
+        # Re-învață din fiecare experiență aleasă
         for state, action, reward, next_state, done in batch:
+            # Aplică din nou procesul de învățare pe experiența veche
             self.update_q_value(state, action, reward, next_state, done)
 
     def decay_epsilon(self, decay_rate=0.995, min_epsilon=0.01):
@@ -278,33 +329,60 @@ class ImprovedTrainingThread(QThread):
             'expert': SmartOpponent(1.0), 'curriculum': [SmartOpponent(0.1 * i) for i in range(11)]
         }
 
+    # Explicatie 1
     def play_game(self, opponent):
+        # Creează o tablă goală
         board = [''] * 9
-        history = []
-        turn = random.choice(['X', 'O'])
-        while True:
-            winner = self.agent.check_winner(board)
-            if winner or '' not in board:
-                reward_map = {'O': 1.0, 'X': -1.0}
-                final_reward = reward_map.get(winner, 0.1)
-                for state, action, next_state in reversed(history):
-                    self.agent.update_q_value(state, action, final_reward, next_state, done=True)
-                    final_reward *= -0.5  # Penalizează mutările care duc la o pierdere
-                self.agent.game_ended(1.0 if winner == 'O' else -1.0 if winner == 'X' else 0.0)
-                break
 
+        # Lista care ține minte toate mutările din acest joc
+        history = []
+        # Alege aleatoriu cine începe (X sau O)
+        turn = random.choice(['X', 'O'])
+
+        while True:
+            # Verifică dacă cineva a câștigat
+            winner = self.agent.check_winner(board)
+
+            # Dacă jocul s-a terminat (cineva a câștigat SAU tabla e plină)
+            if winner or '' not in board:
+                # Mapare: O câștigă = +1, X câștigă = -1
+                reward_map = {'O': 1.0, 'X': -1.0}
+                # Recompensa finală: +1 dacă AI (O) câștigă, -1 dacă pierde, +0.1 dacă egal
+                final_reward = reward_map.get(winner, 0.1)
+
+                # Parcurge TOATE mutările din joc DE LA FINAL LA ÎNCEPUT
+                for state, action, next_state in reversed(history):
+                    # Fiecare mutare învață din rezultatul final
+                    self.agent.update_q_value(state, action, final_reward, next_state, done=True)
+                    # Mutările de la început primesc mai puțină vină/laudă decât cele de la final
+                    # Exemplu: ultima mutare primește 1.0, penultima -0.5, ante-penultima 0.25, etc.
+                    final_reward *= -0.5
+
+                # Actualizează statisticile pentru UI
+                self.agent.game_ended(1.0 if winner == 'O' else -1.0 if winner == 'X' else 0.0)
+                break  # Termină jocul
+
+            # Dacă e rândul AI-ului (O)
             if turn == 'O':
+                # Salvează starea curentă a tablei
                 state = self.agent.state_to_string(board)
+                # AI-ul alege o mutare (cu explorare/exploatare)
                 action = self.agent.choose_action(board, training=True)
                 if action is not None:
+                    # Pune O pe tablă
                     board[action] = 'O'
+                    # Salvează noua stare a tablei
                     next_state = self.agent.state_to_string(board)
+                    # Adaugă mutarea în istoric pentru a învăța la final
                     history.append((state, action, next_state))
+                # Schimbă rândul la adversar
                 turn = 'X'
             else:
+                # Adversarul (X) face mutarea sa
                 move = opponent.choose_move(board)
                 if move is not None:
                     board[move] = 'X'
+                # Schimbă rândul înapoi la AI
                 turn = 'O'
 
     def run(self):
@@ -652,3 +730,7 @@ if __name__ == '__main__':
     game = TicTacToeAI()
     game.show()
     sys.exit(app.exec_())
+
+
+
+

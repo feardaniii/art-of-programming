@@ -450,7 +450,7 @@ def train_neuron_step_by_step():
 
     # Training parameters
     learning_rate = 0.5
-    epochs = 100 # 20 before, failed to grasp 1-1
+    epochs = 15 # 20 before, failed to grasp 1-1
 
     # Track history for plotting
     error_history = []

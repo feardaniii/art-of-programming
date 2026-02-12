@@ -11,7 +11,8 @@ PREREQUISITES:
     - Completed Backpropagation lesson (understand gradients, chain rule)
 
 THE BIG QUESTION:
-    We built backprop by hand. Why do we need TensorFlow?
+    We built backprop by hand.
+    Why do we need TensorFlow?
 
 ANSWER:
     1. AUTOMATIC DIFFERENTIATION - No manual gradient math
@@ -131,7 +132,7 @@ def xor_numpy_vs_tensorflow():
 
     history = model.fit(
         X, y,
-        epochs=1000,
+        epochs=5000,
         verbose=0  # Silent training
     )
 

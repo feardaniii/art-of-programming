@@ -331,6 +331,7 @@ class Calculator(QWidget):
 
 
 
+
             # Toata logica se intampla aici, restul este UI/UX
             # Convert display symbols to calculation symbols
             # Manual inference
@@ -349,6 +350,8 @@ class Calculator(QWidget):
                     return
                 result = num1 / num2
                 operation_text = "împărțirea"
+
+
 
 
 
