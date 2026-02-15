@@ -21,7 +21,7 @@ import cv2
 from ultralytics import YOLO
 
 # Load model (downloads automatically on first run)
-model = YOLO("yolov8n.pt")  # nano = fastest, ~30 FPS on CPU
+model = YOLO("yolov8l.pt")  # nano = fastest, ~30 FPS on CPU
 
 # Open webcam
 cap = cv2.VideoCapture(0)

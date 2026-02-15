@@ -22,4 +22,4 @@ Sesiunea 38 – Transfer Learning cu TensorFlow
 
 Permite fine-tuning pe ultimele straturi ale modelului.
 
-Aplică Transfer Learning pe un dataset personal.
+Aplică Transfer Learning pe un dataset personal*.

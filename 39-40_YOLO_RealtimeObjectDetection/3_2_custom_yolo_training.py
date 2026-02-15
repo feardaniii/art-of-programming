@@ -692,23 +692,46 @@ def print_realworld_guide():
 # MAIN
 # =============================================================================
 
+
 if __name__ == "__main__":
+    # SKIP TRAINING - JUST RUN INFERENCE
+
+    # Point to your existing trained model
+    weights_path = Path("runs/detect/runs/train/shapes_detector/weights/best.pt")
+
     print()
     print("=" * 70)
-    print("YOLOv8 CUSTOM TRAINING TUTORIAL")
+    print("RUNNING INFERENCE WITH TRAINED MODEL")
     print("=" * 70)
     print()
-    print("Options:")
-    print("  1. Run complete training example (synthetic data)")
-    print("  2. Print real-world workflow guide")
-    print()
 
-    choice = input("Enter choice (1 or 2): ").strip()
+    run_inference(
+        weights_path=weights_path,
+        source=0,  # Webcam
+        conf_threshold=0.5
+    )
 
-    if choice == "1":
-        complete_training_example()
-    elif choice == "2":
-        print_realworld_guide()
-    else:
-        print("Running complete example by default...")
-        complete_training_example()
+
+
+#
+#   Complete training and Lesson
+# if __name__ == "__main__":
+#     print()
+#     print("=" * 70)
+#     print("YOLOv8 CUSTOM TRAINING TUTORIAL")
+#     print("=" * 70)
+#     print()
+#     print("Options:")
+#     print("  1. Run complete training example (synthetic data)")
+#     print("  2. Print real-world workflow guide")
+#     print()
+#
+#     choice = input("Enter choice (1 or 2): ").strip()
+#
+#     if choice == "1":
+#         complete_training_example()
+#     elif choice == "2":
+#         print_realworld_guide()
+#     else:
+#         print("Running complete example by default...")
+#         complete_training_example()

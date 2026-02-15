@@ -11,7 +11,7 @@ PREREQUISITES:
 
 THE BIG PICTURE:
     In Scripts 1-3, you mastered the CNN pipeline:
-    convolution -> training -> transfer learning -> deployment.
+    convolution -> training -> transfer learning -> deployment* (soon we'll learn more about deployment).
 
     But the field has not stood still. Today we explore what comes NEXT:
     - Style Transfer: making a photo look like a painting

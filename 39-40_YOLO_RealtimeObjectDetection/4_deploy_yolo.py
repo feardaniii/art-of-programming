@@ -12,6 +12,9 @@ import requests
 
 # ==========================================
 # PRODUCTION OPTIMIZATION: Speed & Efficiency
+# TODO
+# Simple deployment of the trained model living in 40_YOLO_RealtimeObjectDetection\runs\detect\runs\train\shapes_detector\weights\best.pt
+# to a local server/streamlit/others
 # ==========================================
 
 class OptimizedYOLODetector:

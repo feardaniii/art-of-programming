@@ -4,7 +4,7 @@ TRANSFER LEARNING: Standing on Giants' Shoulders
 ================================================================================
 
 Course: The Art of Programming - CNN & Transfer Learning (Session 38)
-Lesson: How to Get 95% Accuracy with Only 500 Images
+Lesson: How to Get 80-90% Accuracy with Only 500 Images
 
 PREREQUISITES:
     - Script 1: Understand convolution and CNN architecture
@@ -16,7 +16,8 @@ THE REVELATION:
 
     Unless... you borrowed knowledge from someone who already did the work.
 
-    This is transfer learning. This is the single most important technique
+    This is transfer learning.
+    This is the single most important technique
     in practical computer vision.
 
 ================================================================================
@@ -28,6 +29,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.applications import MobileNetV2, ResNet50, VGG16, EfficientNetB0
+
 import time
 
 
