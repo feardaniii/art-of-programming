@@ -1,0 +1,5 @@
+numpy>=1.24
+opencv-python>=4.8
+yt-dlp>=2025.1
+PySide6>=6.6
+ultralytics>=8.3

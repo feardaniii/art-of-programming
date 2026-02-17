@@ -1,6 +1,6 @@
 # MCP (Model Context Protocol) - Claude Code Production Setup Guide
 
-> Tested on macOS (Darwin). Last updated: February 2025.
+> Tested on macOS (Darwin). Last updated: February 2026.
 > Based on real production setup across multiple projects.
 
 ---
