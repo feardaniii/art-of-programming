@@ -37,3 +37,6 @@ yolov8m.pt
 *.zip
 
 warm-up_solved.py
+
+Students Tasks/Autonomous_Driving/kitti dataset
+Students Tasks/Autonomous_Driving/dashcam_video.mp4

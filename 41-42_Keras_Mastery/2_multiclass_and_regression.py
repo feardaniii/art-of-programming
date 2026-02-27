@@ -1268,3 +1268,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# Activations Simplified
+# Hidden layers: activations exist to give the network nonlinearity / expressiveness.
+# Output layer activation: chosen to match the format of the answer (probabilities vs numbers).

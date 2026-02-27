@@ -227,18 +227,3 @@ sessions 41-42. Document EVERY decision.
 - [ ] R² > 0.75 pe test set
 
 ---
-
-### Ghid de notare / Grading Guide
-
-| Criteriu | Punctaj |
-|----------|---------|
-| Task 1 (Wine Expert) | 10 pct |
-| Task 2 (Diabetes Regression) | 20 pct |
-| Task 3 (Optimizer & LR Lab) | 20 pct |
-| Task 4 (Regularization Recipe) | 25 pct |
-| Task 5 (Complete Pipeline Capstone) | 25 pct |
-
-**Sesiunea 41:** Tasks 1-2 (30 pct)
-**Sesiunea 42:** Tasks 3-5 (70 pct)
-
-**Termen de predare:** la finalul sesiunii respective sau la inceputul urmatoarei.
