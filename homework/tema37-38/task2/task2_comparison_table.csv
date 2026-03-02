@@ -1,0 +1,4 @@
+config,filters,dropout,augmentation,learning_rate,test_acc
+B,64-128,0.5,False,0.0008,0.929300
+C,32-64-128,0.3,True,0.0008,0.906500
+A,32-64,0.25,True,0.001,0.885900
