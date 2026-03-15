@@ -1,6 +1,8 @@
 # ==========================================
 # FILE: app.py
 # The FastAPI application serving predictions
+# # RUN WITH: uvicorn app:app --reload
+# http://127.0.0.1:8000/docs
 # ==========================================
 
 from fastapi import FastAPI, HTTPException

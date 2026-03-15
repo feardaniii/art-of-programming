@@ -1,7 +1,7 @@
 # ============================================================================
 # STREAMLIT + KERAS: It's Just Python!
 # ============================================================================
-# Run with: streamlit run streamlit_diabetes_app.py
+# Run with: streamlit run 1_streamlit_diabetes.py
 # ============================================================================
 
 import streamlit as st
