@@ -1,5 +1,6 @@
 .venv
 .idea
+.env
 
 yolov8n
 yolov5s.pt
