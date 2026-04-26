@@ -1,14 +1,15 @@
-mancare = 'mere'
+
 
 # Mama: Saluta-l pe domnul Gigi!
-def salut(nume):
+def salut(nume='Mircea'):
     mesaj = f"Salut, domnu {nume}! 👋"
     print(mesaj)
 
+print("Test")
 
 # Apelare funcție
 
-raspuns = salut("Gigi")
+raspuns = salut()
 
 
 # Bucla

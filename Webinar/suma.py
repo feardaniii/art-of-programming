@@ -336,7 +336,7 @@ class Calculator(QWidget):
             # Convert display symbols to calculation symbols
             # Manual inference
             if op == '+':
-                result = num1 + num2 + 7
+                result = num1 + num2 + 10
                 operation_text = "adunarea"
             elif op == '-':
                 result = num1 - num2

@@ -97,9 +97,7 @@ uv run python generate_from_mock.py
 
 ---
 
-## 🎓 For Your 40 Students
-
-Before your students touch a single line of code, they need to see this run. Here is the recommended approach:
+## Get a Feel of the System
 
 1. **Run the Mock Pipeline:** 
    Run `generate_from_mock.py` once yourself using a real API key, and share the resulting Output JSON + Markdown files with the class.

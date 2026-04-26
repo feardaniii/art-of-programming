@@ -1,4 +1,23 @@
-print("Buna din interiorul calculatorului!")
+# print("Buna din interiorul calculatorului!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

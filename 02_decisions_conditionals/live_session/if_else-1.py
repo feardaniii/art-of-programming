@@ -17,3 +17,6 @@ else:
 
 
 print(recomandare)
+
+# Integrare baza date (.txt/md/sqlite)
+
