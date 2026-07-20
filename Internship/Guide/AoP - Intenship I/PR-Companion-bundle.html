@@ -1,0 +1,1763 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>PR Companion · Presentation Methods</title>
+<!-- PR Companion bundle: single file; open in browser (needs network for CDN). -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #faf9f6;
+    --panel: #ffffff;
+    --panel-2: #f4f3ef;
+    --ink: #1a1918;
+    --ink-soft: #3f3d3a;
+    --muted: #807d76;
+    --line: rgba(20,19,18,0.09);
+    --line-strong: rgba(20,19,18,0.18);
+    --accent: oklch(0.55 0.14 252);
+    --accent-soft: oklch(0.55 0.14 252 / 0.10);
+    --accent-ink: oklch(0.40 0.14 252);
+    --good: oklch(0.62 0.13 150);
+    --good-soft: oklch(0.62 0.13 150 / 0.10);
+    --warn: oklch(0.70 0.14 60);
+    --warn-soft: oklch(0.70 0.14 60 / 0.12);
+    --danger: oklch(0.60 0.18 25);
+    --pad: 18px;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --row-gap: 14px;
+  }
+  [data-theme="dark"] {
+    --bg: #131211;
+    --panel: #1c1b1a;
+    --panel-2: #232220;
+    --ink: #f4f3ef;
+    --ink-soft: #d6d4cf;
+    --muted: #908d86;
+    --line: rgba(255,253,246,0.10);
+    --line-strong: rgba(255,253,246,0.20);
+    --accent: oklch(0.72 0.13 252);
+    --accent-soft: oklch(0.72 0.13 252 / 0.18);
+    --accent-ink: oklch(0.85 0.10 252);
+  }
+  [data-density="compact"] { --pad: 14px; --row-gap: 10px; }
+  [data-density="comfy"]   { --pad: 22px; --row-gap: 18px; }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--ink);
+    font-family: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01","cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  code, kbd, pre, .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  a { color: var(--accent-ink); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* layout */
+  .shell { max-width: 980px; margin: 0 auto; padding: 0 28px 120px; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
+    background: color-mix(in oklab, var(--bg) 84%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    max-width: 980px; margin: 0 auto; padding: 12px 28px;
+    display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand .glyph {
+    width: 26px; height: 26px; border-radius: 7px;
+    background: var(--ink); color: var(--bg);
+    display: grid; place-items: center; font-family: "Geist Mono";
+    font-size: 12px; font-weight: 600;
+  }
+  .brand small { color: var(--muted); font-weight: 500; font-size: 12px; }
+
+  .pr-input {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 12px;
+    max-width: 360px; width: 100%; justify-self: center;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .pr-input:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  .pr-input .lbl { font-size: 11px; color: var(--muted); font-family: "Geist Mono"; letter-spacing: 0.02em; text-transform: uppercase; }
+  .pr-input input {
+    border: 0; background: transparent; color: var(--ink); font: inherit;
+    flex: 1; outline: none; font-size: 13px; min-width: 0;
+  }
+  .pr-input input::placeholder { color: var(--muted); }
+
+  .progress-cluster { display: flex; align-items: center; gap: 10px; }
+  .progress-ring { width: 28px; height: 28px; }
+  .progress-ring circle { fill: none; stroke-width: 3; stroke-linecap: round; }
+  .progress-ring .bg { stroke: var(--line); }
+  .progress-ring .fg { stroke: var(--accent); transition: stroke-dasharray .3s; }
+  .progress-text { font-family: "Geist Mono"; font-size: 12px; color: var(--ink-soft); font-weight: 500; }
+
+  /* hero */
+  .hero { padding: 56px 0 32px; }
+  .eyebrow {
+    font-family: "Geist Mono"; font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+  .hero h1 {
+    margin: 14px 0 12px; font-size: clamp(34px, 4.6vw, 52px);
+    font-weight: 600; letter-spacing: -0.025em; line-height: 1.05; text-wrap: balance;
+  }
+  .hero p.lede {
+    margin: 0; font-size: 17px; line-height: 1.55; color: var(--ink-soft); max-width: 64ch;
+    text-wrap: pretty;
+  }
+  .hero-meta { display: flex; gap: 20px; margin-top: 22px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+  .hero-meta span b { color: var(--ink); font-weight: 500; }
+
+  /* tool strip */
+  .toolstrip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px; margin-top: 36px;
+  }
+  .tool-btn {
+    display: flex; flex-direction: column; gap: 6px;
+    text-align: left; padding: 14px 16px;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); cursor: pointer; color: inherit;
+    font: inherit; transition: border-color .15s, transform .15s, background .15s;
+  }
+  .tool-btn:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+  .tool-btn .t-title { font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+  .tool-btn .t-desc { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+  .tool-btn .t-glyph {
+    width: 20px; height: 20px; border-radius: 5px;
+    display: grid; place-items: center;
+    background: var(--accent-soft); color: var(--accent-ink);
+    font-family: "Geist Mono"; font-size: 11px; font-weight: 600;
+  }
+
+  /* steps */
+  .steps { margin-top: 56px; display: flex; flex-direction: column; gap: 22px; }
+  .step {
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--panel); overflow: hidden;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .step.complete { border-color: color-mix(in oklab, var(--good) 35%, var(--line)); }
+  .step.active { box-shadow: 0 0 0 1px var(--accent), 0 4px 24px -8px var(--accent-soft); border-color: var(--accent); }
+
+  .step-head {
+    display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center;
+    padding: var(--pad); cursor: pointer;
+  }
+  .step-num {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: grid; place-items: center; font-family: "Geist Mono";
+    font-size: 13px; font-weight: 600;
+    background: var(--panel-2); color: var(--ink-soft);
+    border: 1px solid var(--line);
+    transition: all .2s;
+  }
+  .step.complete .step-num {
+    background: var(--good); color: white; border-color: var(--good);
+  }
+  .step-title {
+    font-size: 18px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3;
+  }
+  .step-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .step-meta { display: flex; align-items: center; gap: 12px; }
+  .pill {
+    font-family: "Geist Mono"; font-size: 11px; font-weight: 500;
+    padding: 3px 8px; border-radius: 999px; color: var(--muted);
+    border: 1px solid var(--line); background: var(--panel-2);
+    white-space: nowrap;
+  }
+  .pill.full { background: var(--good-soft); color: var(--good); border-color: transparent; }
+  .chev { color: var(--muted); transition: transform .2s; font-size: 13px; }
+  .step[data-open="true"] .chev { transform: rotate(180deg); }
+
+  .step-body {
+    padding: 0 var(--pad) var(--pad);
+    border-top: 1px dashed var(--line);
+    margin-top: -1px;
+  }
+  .step-intro {
+    padding: 16px 0;
+    color: var(--ink-soft); font-size: 14px; line-height: 1.6;
+    max-width: 70ch;
+  }
+  .step-intro strong { color: var(--ink); font-weight: 600; }
+  .step-quote {
+    margin: 4px 0 0; padding: 12px 16px;
+    background: var(--accent-soft); border-radius: var(--radius-sm);
+    color: var(--accent-ink); font-size: 13.5px; font-style: italic;
+    border-left: 2px solid var(--accent);
+  }
+
+  .checklist { display: flex; flex-direction: column; gap: 4px; margin: 8px 0 0; }
+  .check {
+    display: grid; grid-template-columns: 22px 1fr;
+    gap: 12px; align-items: start;
+    padding: 10px 10px 10px 12px; border-radius: 8px;
+    cursor: pointer; transition: background .12s;
+    line-height: 1.5;
+    user-select: none;
+  }
+  .check:hover { background: var(--panel-2); }
+  .check input {
+    appearance: none; -webkit-appearance: none;
+    width: 18px; height: 18px; margin: 1px 0 0;
+    border: 1.5px solid var(--line-strong); border-radius: 5px;
+    background: var(--panel); cursor: pointer; flex-shrink: 0;
+    display: grid; place-items: center;
+    transition: all .15s;
+  }
+  .check input:checked {
+    background: var(--ink); border-color: var(--ink);
+  }
+  .check input:checked::after {
+    content: ""; width: 9px; height: 5px;
+    border: 2px solid var(--bg); border-top: 0; border-right: 0;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .check-text { color: var(--ink-soft); font-size: 14px; }
+  .check input:checked + .check-text {
+    color: var(--muted); text-decoration: line-through;
+    text-decoration-color: var(--line-strong);
+    text-decoration-thickness: 1px;
+  }
+
+  /* code blocks with copy */
+  .code-block {
+    position: relative; margin: 10px 0;
+    background: var(--panel-2); border: 1px solid var(--line);
+    border-radius: var(--radius-sm); overflow: hidden;
+  }
+  .code-block pre {
+    margin: 0; padding: 14px 16px; padding-right: 56px;
+    font-size: 12.5px; line-height: 1.55; overflow-x: auto;
+    color: var(--ink);
+  }
+  .code-block .copy {
+    position: absolute; top: 8px; right: 8px;
+    appearance: none; border: 1px solid var(--line);
+    background: var(--panel); color: var(--muted);
+    padding: 4px 9px; border-radius: 6px; cursor: pointer;
+    font: 500 11px "Geist Mono"; letter-spacing: 0.02em;
+    transition: all .15s;
+  }
+  .code-block .copy:hover { color: var(--ink); border-color: var(--line-strong); }
+  .code-block .copy.copied { color: var(--good); border-color: var(--good); }
+  .code-block .label {
+    font: 500 10.5px "Geist Mono"; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); padding: 8px 16px 0;
+  }
+
+  /* expandable "go deeper" */
+  .deeper {
+    margin-top: 12px; border: 1px dashed var(--line-strong); border-radius: var(--radius-sm);
+    background: color-mix(in oklab, var(--panel-2) 60%, transparent);
+  }
+  .deeper > summary {
+    list-style: none; padding: 11px 14px; cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--ink-soft);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .deeper > summary::-webkit-details-marker { display: none; }
+  .deeper > summary::before {
+    content: "+"; font-family: "Geist Mono"; color: var(--accent);
+    font-size: 16px; line-height: 1;
+  }
+  .deeper[open] > summary::before { content: "−"; }
+  .deeper > summary .deeper-tag {
+    margin-left: auto; font-family: "Geist Mono"; font-size: 10px;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .deeper > div {
+    padding: 4px 16px 16px; border-top: 1px dashed var(--line);
+    color: var(--ink-soft); font-size: 13.5px; line-height: 1.6;
+  }
+  .deeper ul { margin: 6px 0; padding-left: 22px; }
+  .deeper li { margin-bottom: 4px; }
+
+  /* footer + final reminder */
+  .reminder {
+    margin-top: 40px; padding: 28px;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: linear-gradient(135deg, var(--panel) 0%, var(--panel-2) 100%);
+  }
+  .reminder h3 { margin: 0 0 12px; font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+  .reminder ul { margin: 0; padding-left: 18px; color: var(--ink-soft); font-size: 14px; line-height: 1.7; }
+  .reminder ul li::marker { color: var(--accent); }
+  .reminder p {
+    margin: 16px 0 0; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 14px; color: var(--ink); font-style: italic;
+  }
+  .footer-actions {
+    margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .btn {
+    appearance: none; cursor: pointer; font: inherit; font-size: 13px; font-weight: 500;
+    padding: 9px 14px; border-radius: 8px; transition: all .15s;
+    border: 1px solid var(--line); background: var(--panel); color: var(--ink-soft);
+  }
+  .btn:hover { border-color: var(--line-strong); color: var(--ink); }
+  .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .btn.primary:hover { background: var(--ink-soft); }
+  .btn.danger:hover { color: var(--danger); border-color: var(--danger); }
+
+  /* modal */
+  .modal-bg {
+    position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.4);
+    display: grid; place-items: center; padding: 24px;
+    backdrop-filter: blur(4px);
+    animation: fadein .15s;
+  }
+  @keyframes fadein { from { opacity: 0 } to { opacity: 1 } }
+  .modal {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); width: 100%; max-width: 640px;
+    max-height: 85vh; display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  }
+  .modal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px; border-bottom: 1px solid var(--line);
+  }
+  .modal-head h2 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .modal-head .close {
+    border: 0; background: var(--panel-2); color: var(--ink-soft);
+    width: 28px; height: 28px; border-radius: 6px; cursor: pointer;
+    font-size: 16px; line-height: 1;
+  }
+  .modal-body { padding: 22px; overflow-y: auto; }
+  .modal-body p { margin: 0 0 14px; color: var(--ink-soft); font-size: 14px; line-height: 1.6; }
+  .modal-body label { display: block; font-size: 12px; font-weight: 500; color: var(--muted); margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 0.05em; font-family: "Geist Mono"; }
+  .modal-body input[type="text"], .modal-body textarea, .modal-body select {
+    width: 100%; padding: 9px 12px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+    font: inherit; font-size: 13.5px; outline: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .modal-body input[type="text"]:focus, .modal-body textarea:focus, .modal-body select:focus {
+    border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .modal-body textarea { font-family: "Geist Mono"; font-size: 12.5px; line-height: 1.55; resize: vertical; min-height: 120px; }
+
+  .route-card {
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 14px 16px; margin-top: 10px;
+    background: var(--panel-2);
+  }
+  .route-card.match {
+    border-color: var(--accent); background: var(--accent-soft);
+  }
+  .route-card h3 { margin: 0 0 4px; font-size: 14px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+  .route-card .route-tag {
+    font-family: "Geist Mono"; font-size: 11px; padding: 2px 7px;
+    border-radius: 4px; background: var(--ink); color: var(--bg);
+  }
+  .route-card.match .route-tag { background: var(--accent); }
+  .route-card p { margin: 4px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+  .question-block { margin-bottom: 18px; }
+  .question-block .q { font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+  .opt-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .opt {
+    appearance: none; cursor: pointer; padding: 7px 12px;
+    border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+    color: var(--ink-soft); font: inherit; font-size: 13px;
+  }
+  .opt:hover { border-color: var(--line-strong); }
+  .opt.selected { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+  .pitfalls { display: flex; flex-direction: column; gap: 10px; }
+  .pitfall {
+    padding: 12px 14px; background: var(--warn-soft);
+    border-radius: var(--radius-sm); font-size: 13px; color: var(--ink);
+    border-left: 2px solid var(--warn); line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    .topbar-inner { grid-template-columns: 1fr; gap: 10px; }
+    .pr-input { max-width: none; justify-self: stretch; }
+    .progress-cluster { justify-self: end; }
+    .step-head { grid-template-columns: 28px 1fr auto; gap: 12px; }
+    .step-num { width: 26px; height: 26px; font-size: 12px; }
+    .step-title { font-size: 16px; }
+    .hero { padding: 36px 0 24px; }
+  }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel">
+
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  // Auto-inject a rail toggle when a <deck-stage> is on the page. The
+  // toggle drives the deck's per-viewer _railVisible via window message;
+  // state is mirrored from the same localStorage key the deck reads so
+  // the control reflects reality across reloads. The mechanism is the
+  // message — authors who want custom placement can post it directly
+  // and pass noDeckControls to suppress this one.
+  const hasDeckStage = React.useMemo(
+    () => typeof document !== 'undefined' && !!document.querySelector('deck-stage'),
+    [],
+  );
+  // Hide the toggle until the host has actually enabled the rail (the
+  // __omelette_rail_enabled window message, posted only when the
+  // omelette_deck_rail_enabled flag is on for this user). The initial read
+  // covers TweaksPanel mounting after the message already arrived; the
+  // listener covers the common case of mounting first.
+  const [railEnabled, setRailEnabled] = React.useState(
+    () => hasDeckStage && !!document.querySelector('deck-stage')?._railEnabled,
+  );
+  React.useEffect(() => {
+    if (!hasDeckStage || railEnabled) return undefined;
+    const onMsg = (e) => {
+      if (e.data && e.data.type === '__omelette_rail_enabled') setRailEnabled(true);
+    };
+    window.addEventListener('message', onMsg);
+    return () => window.removeEventListener('message', onMsg);
+  }, [hasDeckStage, railEnabled]);
+  const [railVisible, setRailVisible] = React.useState(() => {
+    try { return localStorage.getItem('deck-stage.railVisible') !== '0'; } catch (e) { return true; }
+  });
+  const toggleRail = (on) => {
+    setRailVisible(on);
+    window.postMessage({ type: '__deck_rail_visible', on }, '*');
+  };
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-noncommentable=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">
+          {children}
+          {hasDeckStage && railEnabled && !noDeckControls && (
+            <TweakSection label="Deck">
+              <TweakToggle label="Thumbnail rail" value={railVisible} onChange={toggleRail} />
+            </TweakSection>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakText({ label, value, placeholder, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <input className="twk-field" type="text" value={value} placeholder={placeholder}
+             onChange={(e) => onChange(e.target.value)} />
+    </TweakRow>
+  );
+}
+
+function TweakNumber({ label, value, min, max, step = 1, unit = '', onChange }) {
+  const clamp = (n) => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({ x: 0, val: 0 });
+  const onScrubStart = (e) => {
+    e.preventDefault();
+    startRef.current = { x: e.clientX, val: value };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = (ev) => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return (
+    <div className="twk-num">
+      <span className="twk-num-lbl" onPointerDown={onScrubStart}>{label}</span>
+      <input type="number" value={value} min={min} max={max} step={step}
+             onChange={(e) => onChange(clamp(Number(e.target.value)))} />
+      {unit && <span className="twk-num-unit">{unit}</span>}
+    </div>
+  );
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" className="twk-swatch" value={value}
+               onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>
+                  {sup.map((c, j) => <i key={j} style={{ background: c }} />)}
+                </span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+function TweakButton({ label, onClick, secondary = false }) {
+  return (
+    <button type="button" className={secondary ? 'twk-btn secondary' : 'twk-btn'}
+            onClick={onClick}>{label}</button>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakText, TweakNumber, TweakColor, TweakButton,
+});
+
+  </script>
+  <script type="text/babel">
+// steps.jsx — content for the 9-step PR guide
+
+const STEPS = [
+  {
+    id: "start",
+    title: "Start from the right place",
+    sub: "Set up the branch, find your reference, scope down.",
+    intro: "Before you write any code, get oriented. Pick the right base branch, find one similar method to model on, and resist touching anything outside your scope.",
+    quote: "I am adding one method, not fixing the whole repo.",
+    items: [
+      "Created a feature branch based on `development`",
+      "Read the task description carefully",
+      "Checked `docs/presentation-methods/_REGISTRY.md` for my method",
+      "Found one similar existing method to use as reference",
+      "Confirmed I'm not touching unrelated files",
+    ],
+    deeper: {
+      title: "Reference methods worth modelling on",
+      body: (
+        <div>
+          <p>For interactive methods, look at how these examples are wired end-to-end:</p>
+          <ul>
+            <li><code>QUIZ</code> — answer-bearing, scored, validation</li>
+            <li><code>EMPTY_CELLS</code> — stable item IDs, learner state</li>
+            <li><code>CHECKLIST_TASK</code> — simpler interactive shape</li>
+          </ul>
+          <p>Recent merged PRs are usually the cleanest reference for current conventions — newer than the docs.</p>
+        </div>
+      ),
+    },
+    code: [
+      { label: "branch", lang: "bash", code: "git checkout development\ngit pull\ngit checkout -b feature/presentation-<method-slug>-generator" },
+    ],
+  },
+  {
+    id: "route",
+    title: "Know what kind of method you're building",
+    sub: "Inline, dedicated generator, or unified agent?",
+    intro: "Most methods are one of three shapes. Pick the route before you start writing — it determines which files you'll touch.",
+    items: [
+      "Identified my method's route: A (inline) / B (dedicated) / C (unified)",
+      "If I'm unsure, I'll ask on Discord before building too much",
+    ],
+    deeper: {
+      title: "Use the Route Helper",
+      body: (
+        <div>
+          <p>Open the <strong>Route Helper</strong> tool at the top of the page — it walks through the questions that decide A vs B vs C.</p>
+          <p>Quick rule: if your method needs a structured <code>generation_schema</code>, stable IDs, validation rules, answer data, categories, scoring, or special frontend payloads — it probably needs a <strong>dedicated generator (Route B)</strong>.</p>
+        </div>
+      ),
+    },
+  },
+  {
+    id: "align",
+    title: "Keep schema, prompt, and output aligned",
+    sub: "The biggest review issue, by far.",
+    intro: "Your schema, your prompt, your agent's response model, and your docs all describe the same thing. If any one of them drifts, the agent fails — even when the code 'looks right'.",
+    items: [
+      "Schema defines the real output shape",
+      "Prompt asks for the same output",
+      "Agent response model expects the same output",
+      "Docs show examples that match the real output",
+      "For dedicated generators, the prompt asks for the full wrapper — not just `generation_schema`",
+    ],
+    deeper: {
+      title: "Wrapper fields the prompt needs to ask for",
+      body: (
+        <div>
+          <p>For dedicated generators, the agent returns a wrapper object — not just the inner schema. Make sure your prompt example shows the full wrapper:</p>
+        </div>
+      ),
+    },
+    code: [
+      { label: "wrapper fields", lang: "text", code: "method\ntitle\nsections\ngeneration_schema\nis_valid\nissues" },
+    ],
+  },
+  {
+    id: "files",
+    title: "Expected files for a dedicated generator",
+    sub: "Scan this list before opening the PR.",
+    intro: "If you registered a new agent, audit every registration / config / docs / test surface. The most common 'I forgot one' mistake lives here.",
+    items: [
+      "`src/common/schemas/presentation.py` — schema added",
+      "`src/agno_agents/agents/presentation_generators.py` — wrapper + factory",
+      "`src/agno_agents/agents/prompts/presentation_generator.yaml` — prompt block",
+      "`src/agno_agents/agent_registry.py` — agent registered",
+      "`src/agno_agents/models.py` — model tier mapped",
+      "`src/graphs/course_generation/nodes/agent_nodes/presentation_generator.py` — node routes",
+      "`tests/evals/baseline/model_config.json` — eval baseline entry",
+      "`tests/evals/presentation_generator_<method>.yaml` — promptfoo canary",
+      "`docs/AGENTS_REFERENCE.md` — agent listed",
+      "`docs/presentation-methods/_REGISTRY.md` — registry updated",
+      "`docs/presentation-methods/<method>.md` — method spec written",
+      "Targeted pytest files for schema, factory, and node added",
+    ],
+    deeper: {
+      title: "The classic forget-one mistake",
+      body: (
+        <p style={{margin: 0}}>"I added the agent in one place, but forgot model config, evals, docs, or node routing." — every reviewer, eventually. Use the checklist above as a literal pass before requesting review.</p>
+      ),
+    },
+  },
+  {
+    id: "selector",
+    title: "Be clear about selector behavior",
+    sub: "Explicit-only or auto-selectable?",
+    intro: "Every method should declare whether the selector can pick it automatically, or only when explicitly requested. For new or complex interactive methods, explicit-only is usually safer.",
+    items: [
+      "Decided: explicit-only / auto-selectable",
+      "Documented the choice in the method doc",
+      "Mentioned it in the PR description",
+    ],
+  },
+  {
+    id: "ai-checklist",
+    title: "Use the AI PR Checklist before review",
+    sub: "Plan first, edit later.",
+    intro: "Before requesting human review, run your branch through an AI checklist. Three modes — pick whichever fits where you're working.",
+    items: [
+      "Ran an AI review of my PR plan against the checklist",
+      "Asked for a list of likely blockers — not freeform edits",
+      "If AI suggested touching unrelated files, I stopped and reviewed",
+    ],
+    quote: "Ask AI for a plan or diff first. Do not let it freely edit the repo.",
+    code: [
+      { label: "chat / web AI", lang: "text", code: "Review my PR plan using this checklist.\nOnly list likely blockers and missing files.\nDo not rewrite anything yet." },
+      { label: "codex / vs code AI", lang: "text", code: "Compare my current branch against origin/development using the PR checklist.\nDo not edit files.\nList missing registrations, schema/prompt mismatches, test gaps, and unrelated files." },
+      { label: "github cli (after PR is open)", lang: "text", code: "Use gh to inspect PR #XX comments, inline review comments, changed files, and failed checks.\nSummarize required fixes before editing anything." },
+    ],
+  },
+  {
+    id: "tests",
+    title: "Test the important path",
+    sub: "Prove the contract — not the whole repo.",
+    intro: "You don't need to run everything. Prove the few things reviewers will check first.",
+    items: [
+      "The schema validates",
+      "The factory builds",
+      "The registry can find the agent",
+      "The node routes correctly",
+      "Conversion to `PresentationMethodOutput` works",
+      "Eval / config files exist where required",
+    ],
+    code: [
+      { label: "factory tests", lang: "bash", code: "uv run pytest tests/agno_agents/test_presentation_generator_<method>_factory.py -v" },
+      { label: "node tests", lang: "bash", code: "uv run pytest tests/agno_agents/nodes/test_node_presentation_generator_<method>.py -v" },
+    ],
+    deeper: {
+      title: "When tests fail",
+      body: (
+        <p style={{margin: 0}}>Read the <strong>first real error</strong> — not the last line of the stack trace. If you're stuck, ask for help with the exact output. Use the <strong>"Help me ask for help"</strong> tool to format your message.</p>
+      ),
+    },
+  },
+  {
+    id: "pre-pr",
+    title: "Before opening or updating the PR",
+    sub: "One last sweep for stowaways.",
+    intro: "Inspect what you're actually pushing. The goal is to catch unrelated files, generated files, logs, secrets, and any broad refactors that snuck in.",
+    items: [
+      "Ran `git status` and `git diff` to inspect changes",
+      "No unrelated files",
+      "No generated files / logs / traces / cache files",
+      "No local notes, `.env`, or secrets",
+      "No broad refactors I didn't intend",
+      "PR description includes: method, route, docs/tests added, explicit-only vs auto-selectable, what tests I ran, anything intentionally left out",
+    ],
+    code: [
+      { label: "inspect", lang: "bash", code: "git status --short --branch\ngit diff --name-status origin/development...HEAD\ngit diff --stat origin/development...HEAD" },
+    ],
+    deeper: {
+      title: "Generate your PR description",
+      body: (
+        <p style={{margin: 0}}>Open the <strong>PR Description</strong> tool to fill in a template based on what you did. Copy-paste straight into GitHub.</p>
+      ),
+    },
+  },
+  {
+    id: "if-fails",
+    title: "If CI or review fails",
+    sub: "Don't panic. Classify, then act.",
+    intro: "Not every red check is something you broke. Sort the failure into a bucket before fixing anything.",
+    items: [
+      "Classified the issue: my code / repo baseline / tooling",
+      "If it's my code → fixed it",
+      "If it's existing repo baseline → mentioned it, didn't unilaterally fix",
+      "If it's a tooling/API issue → asked for help instead of grinding for hours",
+    ],
+    deeper: {
+      title: "When asking for help",
+      body: (
+        <p style={{margin: 0}}>Use the <strong>"Help me ask for help"</strong> tool — it formats the message in the way that makes it fastest for someone to actually help you.</p>
+      ),
+    },
+  },
+];
+
+window.STEPS = STEPS;
+
+  </script>
+  <script type="text/babel">
+// tools.jsx — Route Helper, PR Description Generator, Help Template, Pitfalls
+
+const ROUTES = [
+  {
+    key: "A",
+    name: "Inline text method",
+    desc: "Mostly rewrites lesson text. No extra LLM generation, no method-specific schema, no answer keys, no learner state, no media, no scoring, no frontend interaction.",
+  },
+  {
+    key: "B",
+    name: "Dedicated typed generator",
+    desc: "Needs structured payload + strong contract tests. Document/template output, interactive exercise with stable item IDs, answer/validation metadata, task/checklist/card/grid schema, method-specific prompt guardrails.",
+  },
+  {
+    key: "C",
+    name: "Unified presentation agent",
+    desc: "The existing generic presentation agent already covers the family — Mermaid variants, audio/video script methods, generic visual methods where sections + MediaPrompt is enough.",
+  },
+];
+
+const ROUTE_QUESTIONS = [
+  {
+    id: "rewrite",
+    q: "Can the method be represented by existing lesson content, just rewrapped?",
+    opts: ["Yes — text only", "No — needs more"],
+  },
+  {
+    id: "schema",
+    q: "Does it need a structured generation_schema with stable IDs, validators, answers, or scoring?",
+    opts: ["Yes", "No"],
+  },
+  {
+    id: "family",
+    q: "Is it a Mermaid / audio / video / generic visual method?",
+    opts: ["Yes", "No"],
+  },
+];
+
+function decideRoute(answers) {
+  if (answers.rewrite === "Yes — text only" && answers.schema === "No") return "A";
+  if (answers.schema === "Yes") return "B";
+  if (answers.family === "Yes") return "C";
+  return null;
+}
+
+function RouteHelper() {
+  const [answers, setAnswers] = React.useState({});
+  const route = decideRoute(answers);
+  return (
+    <div>
+      <p>Three quick questions decide A / B / C.</p>
+      {ROUTE_QUESTIONS.map((q) => (
+        <div key={q.id} className="question-block">
+          <div className="q">{q.q}</div>
+          <div className="opt-row">
+            {q.opts.map((o) => (
+              <button
+                key={o}
+                className={"opt" + (answers[q.id] === o ? " selected" : "")}
+                onClick={() => setAnswers({ ...answers, [q.id]: o })}
+              >
+                {o}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+      <div style={{ marginTop: 22, paddingTop: 18, borderTop: "1px solid var(--line)" }}>
+        <div style={{ fontSize: 12, fontFamily: "Geist Mono", color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
+          Suggestion
+        </div>
+        {ROUTES.map((r) => (
+          <div key={r.key} className={"route-card" + (route === r.key ? " match" : "")}>
+            <h3><span className="route-tag">Route {r.key}</span> {r.name}</h3>
+            <p>{r.desc}</p>
+          </div>
+        ))}
+        {!route && (
+          <p style={{ fontSize: 12.5, color: "var(--muted)", marginTop: 14 }}>
+            Answer all three questions to see a recommendation. When in doubt for high-complexity interactive methods, prefer Route B — more work, clearer contract, safer PR.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function PRTemplate() {
+  const [f, setF] = React.useState({
+    method: "",
+    type: "interactive",
+    complexity: "medium",
+    selector: "explicit-only",
+    schema: "",
+    agent: "",
+    prompt: "",
+    route: "B",
+    risks: "",
+    tests: { schema: false, factory: false, node: false, ruff: false, promptfoo: false, live: false, pipeline: false },
+  });
+  const set = (k, v) => setF({ ...f, [k]: v });
+  const setTest = (k, v) => setF({ ...f, tests: { ...f.tests, [k]: v } });
+  const slug = f.method.trim().toLowerCase().replace(/\s+/g, "_") || "<method_slug>";
+  const checkbox = (b) => (b ? "[x]" : "[ ]");
+
+  const md = `## Summary
+
+Adds \`${f.method.toUpperCase() || "<METHOD>"}\` as a \`${f.type}/${f.complexity}\` presentation method.
+
+Includes:
+- schema: \`${f.schema || `Presentation${slug}Schema`}\`
+- agent: \`presentation_generator_${slug}\`
+- prompt block: \`${f.prompt || `${slug}_generator`}\`
+- node routing: Route ${f.route}
+- docs: \`docs/presentation-methods/${slug}.md\`
+- eval: \`tests/evals/presentation_generator_${slug}.yaml\`
+
+## Design Notes
+
+- Auto-selection: ${f.selector}
+- Route: ${ROUTES.find((r) => r.key === f.route)?.name || ""}
+
+## Validation
+
+- ${checkbox(f.tests.schema)} Targeted schema pytest
+- ${checkbox(f.tests.factory)} Targeted factory pytest
+- ${checkbox(f.tests.node)} Targeted node-routing pytest
+- ${checkbox(f.tests.ruff)} Ruff on changed Python files
+- ${checkbox(f.tests.promptfoo)} Promptfoo canary
+- ${checkbox(f.tests.live)} Live generation scenarios
+- ${checkbox(f.tests.pipeline)} Full pipeline run
+
+## Known Risks / Follow-ups
+
+${f.risks || "- (none)"}
+`;
+
+  return (
+    <div>
+      <p>Fill in what applies — the markdown updates as you type. Copy-paste into GitHub.</p>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+        <div>
+          <label>Method name</label>
+          <input type="text" value={f.method} onChange={(e) => set("method", e.target.value)} placeholder="e.g. flashcards" />
+        </div>
+        <div>
+          <label>Route</label>
+          <select value={f.route} onChange={(e) => set("route", e.target.value)}>
+            <option value="A">A — Inline text</option>
+            <option value="B">B — Dedicated generator</option>
+            <option value="C">C — Unified agent</option>
+          </select>
+        </div>
+        <div>
+          <label>Type</label>
+          <select value={f.type} onChange={(e) => set("type", e.target.value)}>
+            <option>text</option><option>interactive</option><option>visual</option><option>audio</option><option>video</option>
+          </select>
+        </div>
+        <div>
+          <label>Complexity</label>
+          <select value={f.complexity} onChange={(e) => set("complexity", e.target.value)}>
+            <option>low</option><option>medium</option><option>high</option>
+          </select>
+        </div>
+        <div>
+          <label>Selector</label>
+          <select value={f.selector} onChange={(e) => set("selector", e.target.value)}>
+            <option>explicit-only</option><option>auto-selectable</option>
+          </select>
+        </div>
+      </div>
+      <label>Tests run</label>
+      <div className="opt-row" style={{ marginTop: 4 }}>
+        {Object.entries({ schema: "Schema", factory: "Factory", node: "Node", ruff: "Ruff", promptfoo: "Promptfoo", live: "Live", pipeline: "Pipeline" }).map(([k, v]) => (
+          <button key={k} className={"opt" + (f.tests[k] ? " selected" : "")} onClick={() => setTest(k, !f.tests[k])}>{v}</button>
+        ))}
+      </div>
+      <label>Known risks / follow-ups (one per line, with leading "- ")</label>
+      <textarea value={f.risks} onChange={(e) => set("risks", e.target.value)} placeholder="- frontend submission path unresolved&#10;- answer-key exposure pending review" />
+      <label>Generated PR description</label>
+      <CodeBlock code={md} label="copy into github" />
+    </div>
+  );
+}
+
+function HelpTemplate() {
+  const [f, setF] = React.useState({ task: "", branch: "", check: "", error: "", files: "", tried: "" });
+  const set = (k, v) => setF({ ...f, [k]: v });
+  const md = `task: ${f.task || "<task name / link>"}
+branch/PR: ${f.branch || "<branch or PR #>"}
+failing check: ${f.check || "<which CI step / which review comment>"}
+error message:
+${f.error || "<paste the first real error>"}
+files changed:
+${f.files || "<short list>"}
+what I already tried:
+${f.tried || "<bullets>"}`;
+
+  return (
+    <div>
+      <p>Format your ask so a teammate can help in &lt; 2 minutes. Fill any fields you have — the others stay as placeholders.</p>
+      <label>Task</label>
+      <input type="text" value={f.task} onChange={(e) => set("task", e.target.value)} placeholder="Add FLASHCARDS presentation method" />
+      <label>Branch / PR</label>
+      <input type="text" value={f.branch} onChange={(e) => set("branch", e.target.value)} placeholder="feature/presentation-flashcards-generator or PR #142" />
+      <label>Failing check</label>
+      <input type="text" value={f.check} onChange={(e) => set("check", e.target.value)} placeholder="pytest tests/agno_agents/... factory test" />
+      <label>Error message</label>
+      <textarea value={f.error} onChange={(e) => set("error", e.target.value)} placeholder="Paste the FIRST real error, not the last line" />
+      <label>Files changed</label>
+      <textarea value={f.files} onChange={(e) => set("files", e.target.value)} style={{ minHeight: 60 }} placeholder="schemas/presentation.py, agent_registry.py, ..." />
+      <label>What I already tried</label>
+      <textarea value={f.tried} onChange={(e) => set("tried", e.target.value)} style={{ minHeight: 60 }} placeholder="- ran ruff, clean&#10;- regenerated lockfile" />
+      <label>Message to send</label>
+      <CodeBlock code={md} label="copy & paste" />
+    </div>
+  );
+}
+
+const PITFALLS = [
+  "Adding a schema but not registering the agent in agent_registry.py",
+  "Adding a factory but not adding the model tier in models.py",
+  "Updating docs but forgetting node routing",
+  "Letting the selector auto-pick a method before the frontend supports it",
+  "Treating an interactive method as 'done' when answer submission, scoring, or retries are unresolved",
+  "Exposing expected answers without a PR caveat",
+  "Promptfoo passes a canary but no pytest covers schema/node contracts",
+  "Promptfoo passes while the Agno response model fails under OpenAI strict structured outputs",
+  "Running live tests but not recording which scenario was tested",
+  "Claiming full-pipeline validation when only direct agent generation was run",
+  "Ignoring non-English language behavior",
+  "Forgetting source-material prompt-injection guardrails",
+  "Using raw dicts where a Pydantic schema should define the contract",
+  "Modifying broad architecture to support one method when a local route is enough",
+];
+
+function Pitfalls() {
+  return (
+    <div>
+      <p>Scan before requesting review. If any of these sound like you — fix it first.</p>
+      <div className="pitfalls">
+        {PITFALLS.map((p, i) => (<div key={i} className="pitfall">{p}</div>))}
+      </div>
+    </div>
+  );
+}
+
+function CodeBlock({ code, label }) {
+  const [copied, setCopied] = React.useState(false);
+  const onCopy = () => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1400);
+    });
+  };
+  return (
+    <div className="code-block">
+      {label && <div className="label">{label}</div>}
+      <pre>{code}</pre>
+      <button className={"copy" + (copied ? " copied" : "")} onClick={onCopy}>
+        {copied ? "✓ copied" : "copy"}
+      </button>
+    </div>
+  );
+}
+
+window.RouteHelper = RouteHelper;
+window.PRTemplate = PRTemplate;
+window.HelpTemplate = HelpTemplate;
+window.Pitfalls = Pitfalls;
+window.CodeBlock = CodeBlock;
+
+  </script>
+  <script type="text/babel">
+// app.jsx — main app shell
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "dark": false,
+  "density": "regular",
+  "accent": "#3a6dd1",
+  "showDeeper": true
+}/*EDITMODE-END*/;
+
+// Each accent: hex (used as the swatch in TweakColor) → resolved oklch tokens.
+const ACCENTS = {
+  "#3a6dd1": { bg: "oklch(0.55 0.14 252)", soft: "oklch(0.55 0.14 252 / 0.10)", ink: "oklch(0.40 0.14 252)", inkDark: "oklch(0.85 0.10 252)" },
+  "#3e8c5e": { bg: "oklch(0.55 0.13 150)", soft: "oklch(0.55 0.13 150 / 0.10)", ink: "oklch(0.40 0.13 150)", inkDark: "oklch(0.85 0.10 150)" },
+  "#c46a3a": { bg: "oklch(0.58 0.15 40)",  soft: "oklch(0.58 0.15 40 / 0.10)",  ink: "oklch(0.42 0.15 40)",  inkDark: "oklch(0.85 0.10 40)" },
+  "#8a5cd4": { bg: "oklch(0.55 0.16 295)", soft: "oklch(0.55 0.16 295 / 0.10)", ink: "oklch(0.42 0.16 295)", inkDark: "oklch(0.85 0.10 295)" },
+};
+
+const TOTAL_ITEMS = STEPS.reduce((s, st) => s + st.items.length, 0);
+
+function storageKey(prName) {
+  return "prc::" + (prName || "_default");
+}
+
+function loadState(prName) {
+  try {
+    const raw = localStorage.getItem(storageKey(prName));
+    if (!raw) return {};
+    return JSON.parse(raw);
+  } catch { return {}; }
+}
+function saveState(prName, state) {
+  try { localStorage.setItem(storageKey(prName), JSON.stringify(state)); } catch {}
+}
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  const [prName, setPrName] = React.useState(() => localStorage.getItem("prc::current") || "");
+  const [checks, setChecks] = React.useState(() => loadState(prName).checks || {});
+  const [openSteps, setOpenSteps] = React.useState(() => loadState(prName).open || { [STEPS[0].id]: true });
+  const [modal, setModal] = React.useState(null);
+
+  // apply tweaks to document
+  React.useEffect(() => {
+    document.documentElement.dataset.theme = t.dark ? "dark" : "light";
+    document.documentElement.dataset.density = t.density;
+    const a = ACCENTS[t.accent] || ACCENTS["#3a6dd1"];
+    const root = document.documentElement.style;
+    root.setProperty("--accent", a.bg);
+    root.setProperty("--accent-soft", a.soft);
+    root.setProperty("--accent-ink", t.dark ? a.inkDark : a.ink);
+  }, [t.dark, t.density, t.accent]);
+
+  // persist on change
+  React.useEffect(() => {
+    saveState(prName, { checks, open: openSteps });
+    if (prName) localStorage.setItem("prc::current", prName);
+  }, [checks, openSteps, prName]);
+
+  // when prName changes, reload its state
+  const onChangePR = (name) => {
+    setPrName(name);
+    const s = loadState(name);
+    setChecks(s.checks || {});
+    setOpenSteps(s.open || { [STEPS[0].id]: true });
+  };
+
+  const totalChecked = Object.values(checks).filter(Boolean).length;
+  const pct = Math.round((totalChecked / TOTAL_ITEMS) * 100);
+
+  const stepCount = (sid) => {
+    const step = STEPS.find((s) => s.id === sid);
+    let done = 0;
+    step.items.forEach((_, i) => { if (checks[`${sid}:${i}`]) done++; });
+    return { done, total: step.items.length };
+  };
+
+  const toggleStep = (sid) => setOpenSteps((s) => ({ ...s, [sid]: !s[sid] }));
+  const toggleCheck = (sid, i) => setChecks((c) => ({ ...c, [`${sid}:${i}`]: !c[`${sid}:${i}`] }));
+
+  const reset = () => {
+    if (confirm("Reset all progress for this PR?")) {
+      setChecks({});
+    }
+  };
+
+  const exportProgress = () => {
+    const lines = [`# PR Companion progress`, ``, `PR: ${prName || "(unnamed)"}`, `Done: ${totalChecked} / ${TOTAL_ITEMS} (${pct}%)`, ``];
+    STEPS.forEach((s, idx) => {
+      const c = stepCount(s.id);
+      lines.push(`## ${idx + 1}. ${s.title}  (${c.done}/${c.total})`);
+      s.items.forEach((item, i) => {
+        const done = checks[`${s.id}:${i}`];
+        lines.push(`- [${done ? "x" : " "}] ${item.replace(/`/g, "")}`);
+      });
+      lines.push("");
+    });
+    const blob = new Blob([lines.join("\n")], { type: "text/markdown" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `pr-progress-${(prName || "unnamed").replace(/\W+/g, "_")}.md`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // progress ring
+  const C = 2 * Math.PI * 11;
+  const dash = (totalChecked / TOTAL_ITEMS) * C;
+
+  return (
+    <React.Fragment>
+      {/* topbar */}
+      <div className="topbar">
+        <div className="topbar-inner">
+          <div className="brand">
+            <div className="glyph">PR</div>
+            <div>
+              <div>PR Companion</div>
+              <small>Presentation methods, demystified</small>
+            </div>
+          </div>
+          <label className="pr-input" title="Progress is saved per PR name in your browser">
+            <span className="lbl">PR</span>
+            <input
+              type="text"
+              value={prName}
+              onChange={(e) => onChangePR(e.target.value)}
+              placeholder="branch or PR name (e.g. flashcards)"
+            />
+          </label>
+          <div className="progress-cluster">
+            <svg className="progress-ring" viewBox="0 0 28 28">
+              <circle className="bg" cx="14" cy="14" r="11" />
+              <circle
+                className="fg"
+                cx="14" cy="14" r="11"
+                strokeDasharray={`${dash} ${C}`}
+                transform="rotate(-90 14 14)"
+              />
+            </svg>
+            <div className="progress-text">{totalChecked}/{TOTAL_ITEMS}</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="shell">
+        {/* hero */}
+        <div className="hero">
+          <div className="eyebrow">Internship · Presentation Method PRs</div>
+          <h1>A friendly checklist for shipping your first PR.</h1>
+          <p className="lede">
+            Nine steps, lifted from the Quick PR Guide. Tick boxes as you go — your progress saves automatically, keyed to your PR name. You don't need to know the whole repo. Focus on your method, follow the path, and ask for help early.
+          </p>
+          <div className="hero-meta">
+            <span><b>9 steps</b></span>
+            <span><b>~30 min</b> first read</span>
+            <span><b>Save progress per PR</b></span>
+          </div>
+
+          {/* tool strip */}
+          <div className="toolstrip">
+            <button className="tool-btn" onClick={() => setModal("route")}>
+              <div className="t-title"><span className="t-glyph">A?</span> Route Helper</div>
+              <div className="t-desc">A, B, or C? Three questions to find out.</div>
+            </button>
+            <button className="tool-btn" onClick={() => setModal("pr")}>
+              <div className="t-title"><span className="t-glyph">PR</span> PR Description</div>
+              <div className="t-desc">Generate a clean, complete PR write-up.</div>
+            </button>
+            <button className="tool-btn" onClick={() => setModal("help")}>
+              <div className="t-title"><span className="t-glyph">SOS</span> Ask for Help</div>
+              <div className="t-desc">Format an effective ask in 30 seconds.</div>
+            </button>
+            <button className="tool-btn" onClick={() => setModal("pitfalls")}>
+              <div className="t-title"><span className="t-glyph">!</span> Common Pitfalls</div>
+              <div className="t-desc">Scan before you request review.</div>
+            </button>
+          </div>
+        </div>
+
+        {/* steps */}
+        <div className="steps">
+          {STEPS.map((step, idx) => {
+            const c = stepCount(step.id);
+            const isOpen = !!openSteps[step.id];
+            const complete = c.done === c.total && c.total > 0;
+            return (
+              <div key={step.id} className={"step" + (complete ? " complete" : "")} data-open={isOpen}>
+                <div className="step-head" onClick={() => toggleStep(step.id)}>
+                  <div className="step-num">{complete ? "✓" : (idx + 1).toString().padStart(2, "0")}</div>
+                  <div>
+                    <div className="step-title">{step.title}</div>
+                    <div className="step-sub">{step.sub}</div>
+                  </div>
+                  <div className="step-meta">
+                    <div className={"pill" + (complete ? " full" : "")}>{c.done}/{c.total}</div>
+                    <div className="chev">▾</div>
+                  </div>
+                </div>
+                {isOpen && (
+                  <div className="step-body">
+                    <div className="step-intro">{step.intro}</div>
+                    {step.quote && <div className="step-quote">"{step.quote}"</div>}
+
+                    <div className="checklist">
+                      {step.items.map((item, i) => (
+                        <label key={i} className="check">
+                          <input
+                            type="checkbox"
+                            checked={!!checks[`${step.id}:${i}`]}
+                            onChange={() => toggleCheck(step.id, i)}
+                          />
+                          <span className="check-text" dangerouslySetInnerHTML={{ __html: formatItem(item) }} />
+                        </label>
+                      ))}
+                    </div>
+
+                    {step.code && step.code.map((c, i) => (
+                      <CodeBlock key={i} code={c.code} label={c.label} />
+                    ))}
+
+                    {t.showDeeper && step.deeper && (
+                      <details className="deeper">
+                        <summary>
+                          {step.deeper.title}
+                          <span className="deeper-tag">go deeper</span>
+                        </summary>
+                        <div>{step.deeper.body}</div>
+                      </details>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* reminder */}
+        <div className="reminder">
+          <h3>Final reminder</h3>
+          <ul>
+            <li>You are not expected to know the entire repo.</li>
+            <li>Make small changes.</li>
+            <li>Compare with working examples.</li>
+            <li>Use the AI checklist.</li>
+            <li>Ask for help early.</li>
+            <li>Keep the PR focused.</li>
+          </ul>
+          <p>A good PR is not perfect on the first try. A good PR is clear, scoped, and easy to review.</p>
+        </div>
+
+        <div className="footer-actions">
+          <button className="btn primary" onClick={exportProgress}>Export progress (.md)</button>
+          <button className="btn danger" onClick={reset}>Reset this PR</button>
+        </div>
+      </div>
+
+      {/* modal */}
+      {modal && (
+        <div className="modal-bg" onClick={(e) => { if (e.target === e.currentTarget) setModal(null); }}>
+          <div className="modal">
+            <div className="modal-head">
+              <h2>{
+                modal === "route" ? "Route Helper" :
+                modal === "pr" ? "PR Description Generator" :
+                modal === "help" ? "Ask for Help — Template" :
+                "Common Pitfalls"
+              }</h2>
+              <button className="close" onClick={() => setModal(null)}>×</button>
+            </div>
+            <div className="modal-body">
+              {modal === "route" && <RouteHelper />}
+              {modal === "pr" && <PRTemplate />}
+              {modal === "help" && <HelpTemplate />}
+              {modal === "pitfalls" && <Pitfalls />}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* tweaks */}
+      <TweaksPanel>
+        <TweakSection label="Appearance" />
+        <TweakToggle label="Dark mode" value={t.dark} onChange={(v) => setTweak("dark", v)} />
+        <TweakRadio label="Density" value={t.density} options={["compact", "regular", "comfy"]} onChange={(v) => setTweak("density", v)} />
+        <TweakColor
+          label="Accent"
+          value={t.accent}
+          options={Object.keys(ACCENTS)}
+          onChange={(v) => setTweak("accent", v)}
+        />
+        <TweakSection label="Content" />
+        <TweakToggle label="Show 'go deeper' panels" value={t.showDeeper} onChange={(v) => setTweak("showDeeper", v)} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+// inline-code formatter: wrap backticked spans in <code>
+function formatItem(s) {
+  const esc = s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return esc.replace(/`([^`]+)`/g, '<code style="font-size: 0.86em; padding: 1px 5px; border-radius: 4px; background: var(--panel-2); border: 1px solid var(--line); color: var(--ink);">$1</code>');
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+  </script>
+</body>
+</html>
