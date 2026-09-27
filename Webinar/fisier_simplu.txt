@@ -1,0 +1,3 @@
+Mesaj 1: Buna din interiorul calculatorului!
+
+Mesaj 2: Hello World!
